@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "db:delete": "rm database/db.sqlite",
     "db:create": "sqlite3 database/db.sqlite < database/create.sql",
     "db:fill": "sqlite3 database/db.sqlite < database/data.sql"
   },

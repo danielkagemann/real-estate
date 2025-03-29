@@ -1,11 +1,13 @@
-import { Filters, filterSchema, TypeEnum, typeEnumSchema } from "@/models/property";
+import { Filters, filterSchema, TypeEnum } from "@/models/schema";
 import { FC, useState } from "react";
 import { Tag } from "../ui/Tag";
 
 type FilterProps = {
-   onApply: () => void
+   onApply: (flt: Filters) => void
 };
 
+// FIXME: distinct filters
+// FIXME: user can select locations from menu
 export const PropertyFilter: FC<FilterProps> = ({ onApply }) => {
    const [filter, setFilter] = useState<Filters>(filterSchema.parse({}));
 
@@ -17,6 +19,8 @@ export const PropertyFilter: FC<FilterProps> = ({ onApply }) => {
          </p>
       </div>
    );
+
+   const handleSearch = () => onApply(filter)
 
    const toggleType = (value: string) => () => {
       const list = [...filter.types]
@@ -41,7 +45,7 @@ export const PropertyFilter: FC<FilterProps> = ({ onApply }) => {
       </div>
    );
 
-   const handlePrice = (event: InputEvent) => {
+   const handlePrice = (event: any) => {
       const { value } = event.target
       setFilter({ ...filter, maxPrice: Number(value) })
    }
@@ -68,7 +72,7 @@ export const PropertyFilter: FC<FilterProps> = ({ onApply }) => {
             <div className="h-auto w-[1px] bg-gray-400"></div>
             <button type="button"
                className="cursor-pointer rounded-4xl bg-red-700 text-white p-4"
-               onClick={onApply}>
+               onClick={handleSearch}>
                <svg width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1} strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-search"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
             </button>
          </div>

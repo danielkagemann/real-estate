@@ -9,18 +9,18 @@ export async function POST(req: NextRequest) {
   const where: string[] = [];
   const params: any[] = [];
 
-  if (locations) {
+  if (locations.length > 0) {
     const placeholders = locations.map(() => "?").join(", ");
     where.push(`location IN (${placeholders})`);
     params.push(...locations);
   }
-  if (types) {
+  if (types.length > 0) {
     const placeholders = types.map(() => "?").join(", ");
     where.push(`type IN (${placeholders})`);
     params.push(...types);
   }
 
-  if (maxPrice !== undefined) {
+  if (maxPrice > 0) {
     where.push(`price <= ?`);
     params.push(maxPrice);
   }
@@ -28,6 +28,9 @@ export async function POST(req: NextRequest) {
   const sql = `SELECT * FROM properties${
     where.length ? " WHERE " + where.join(" AND ") : ""
   }`;
+
+  console.log(sql, params);
+
   const stmt = db.prepare(sql);
   const properties = stmt.all(...params);
 

@@ -1,9 +1,17 @@
 import { z } from "zod";
 
+export const agentSchema = z.object({
+  id: z.number().int().optional(),
+  name: z.string().min(1),
+  email: z.string().email(),
+  phone: z.string().optional(),
+});
+
 export const typeEnumSchema = z.enum(["villa", "apartment", "finca"]);
 
 export const propertySchema = z.object({
   id: z.number().int().optional(),
+  created: z.string().datetime().optional(),
   title: z.string().min(1),
   description: z.string().min(1),
   location: z.string().min(1),
@@ -18,6 +26,7 @@ export const propertySchema = z.object({
   private_pool: z.enum(["0", "1"]).or(z.number().int().min(0).max(1)),
   parking: z.number().int().min(0),
   images: z.string().optional(),
+  agent_id: z.number().int().positive(),
 });
 
 export const distinctFilters = z.object({
@@ -35,3 +44,4 @@ export type TypeEnum = z.infer<typeof typeEnumSchema>;
 export type Property = z.infer<typeof propertySchema>;
 export type Filters = z.infer<typeof filterSchema>;
 export type DistinctFilters = z.infer<typeof distinctFilters>;
+export type Agent = z.infer<typeof agentSchema>;

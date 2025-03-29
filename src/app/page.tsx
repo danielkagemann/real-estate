@@ -1,8 +1,17 @@
 "use client";
 
+import { Featured } from "@/components/features/featured";
 import { PropertyFilter } from "@/components/features/propertyfilter";
+import { useGetProperties } from "@/hooks/propertyEndpoints";
+import { Filters } from "@/models/schema";
 
 export default function Home() {
+
+  const $properties = useGetProperties()
+
+  const handleResults = (flt: Filters) => {
+    $properties.setFilters(flt);
+  }
 
   return (
     <main>
@@ -16,7 +25,9 @@ export default function Home() {
                 Start your journey today and explore the best real estate Spain has to offer.</p>
             </div>
 
-            <PropertyFilter onApply={() => null} />
+            <PropertyFilter onApply={handleResults} />
+
+            <p>found {$properties?.query?.data?.length ?? 0} properties</p>
 
           </div>
         </div>
@@ -24,6 +35,9 @@ export default function Home() {
           <div className="bg-no-repeat w-full h-full bg-cover bg-[url(/images/welcome.jpg)]" />
         </div>
       </div>
-    </main >
+
+      <Featured />
+
+    </main>
   );
 }

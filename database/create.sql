@@ -7,11 +7,21 @@ CREATE TABLE properties (
   price INTEGER NOT NULL,
   newbuild INTEGER NOT NULL CHECK(newbuild IN (0, 1)),
   build INTEGER NOT NULL,
-  area INTEGER NOT NULL,       -- Wohnfläche in m²
-  plot INTEGER,                -- Grundstücksgröße in m² (NULL bei Apartments erlaubt)
-  bedrooms INTEGER NOT NULL,   -- Anzahl Schlafzimmer
-  bathrooms INTEGER NOT NULL,  -- Anzahl Badezimmer
-  private_pool INTEGER NOT NULL CHECK(private_pool IN (0, 1)), -- 1 = Ja, 0 = Nein
-  parking INTEGER NOT NULL     -- Anzahl Parkplätze
-  images TEXT -- z. B. JSON- oder Komma-getrennte Bild-URLs
+  area INTEGER NOT NULL,       
+  plot INTEGER,                
+  bedrooms INTEGER NOT NULL,   
+  bathrooms INTEGER NOT NULL,  
+  private_pool INTEGER NOT NULL CHECK(private_pool IN (0, 1)), 
+  parking INTEGER NOT NULL,
+  images TEXT,
+  agent_id INTEGER NOT NULL,
+  created TEXT NOT NULL DEFAULT (date('now')),
+  FOREIGN KEY (agent_id) REFERENCES agents(id)
+);
+
+CREATE TABLE agents (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL,
+  email TEXT,
+  phone TEXT
 );
