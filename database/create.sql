@@ -13,4 +13,5 @@ CREATE TABLE properties (
   bathrooms INTEGER NOT NULL,  -- Anzahl Badezimmer
   private_pool INTEGER NOT NULL CHECK(private_pool IN (0, 1)), -- 1 = Ja, 0 = Nein
   parking INTEGER NOT NULL     -- Anzahl Parkplätze
+  images TEXT -- z. B. JSON- oder Komma-getrennte Bild-URLs
 );

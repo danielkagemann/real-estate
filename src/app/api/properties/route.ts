@@ -1,32 +1,35 @@
-import { db } from '@/lib/db'
-import { NextResponse } from 'next/server'
+import { db } from "@/lib/db";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: Request) {
-  const { searchParams } = new URL(req.url)
-  const location = searchParams.get('location')?.toLowerCase()
-  const type = searchParams.get('type')
-  const maxPrice = searchParams.get('maxPrice') ? parseInt(searchParams.get('maxPrice')!) : undefined
+export async function POST(req: NextRequest) {
+  const body = await req.json();
 
-  let query = 'SELECT * FROM properties WHERE 1=1'
-  const params: any[] = []
+  const { locations, types, maxPrice } = body;
 
-  if (location) {
-    query += ' AND LOWER(location) LIKE ?'
-    params.push(`%${location}%`)
+  const where: string[] = [];
+  const params: any[] = [];
+
+  if (locations) {
+    const placeholders = locations.map(() => "?").join(", ");
+    where.push(`location IN (${placeholders})`);
+    params.push(...locations);
+  }
+  if (types) {
+    const placeholders = types.map(() => "?").join(", ");
+    where.push(`type IN (${placeholders})`);
+    params.push(...types);
   }
 
-  if (type) {
-    query += ' AND type = ?'
-    params.push(type)
+  if (maxPrice !== undefined) {
+    where.push(`price <= ?`);
+    params.push(maxPrice);
   }
 
-  if (maxPrice) {
-    query += ' AND price <= ?'
-    params.push(maxPrice)
-  }
+  const sql = `SELECT * FROM properties${
+    where.length ? " WHERE " + where.join(" AND ") : ""
+  }`;
+  const stmt = db.prepare(sql);
+  const properties = stmt.all(...params);
 
-  const stmt = db.prepare(query)
-  const properties = stmt.all(...params)
-
-  return NextResponse.json(properties)
+  return NextResponse.json(properties);
 }
