@@ -5,8 +5,8 @@ import { IconSearch } from "@tabler/icons-react";
 import { useGetDistinctFilter } from "@/hooks/propertyEndpoints";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from 'next/navigation'
+import { Menu } from "../ui/Menu";
 
-// FIXME: user can select locations from menu
 export const PropertyFilter = () => {
    const searchParams = useSearchParams()
 
@@ -19,11 +19,38 @@ export const PropertyFilter = () => {
 
    const $distinct = useGetDistinctFilter()
 
+   const handleLocation = (name: string) => () => {
+      const list = [...filter.locations];
+      const id = list.indexOf(name);
+      if (id === -1) {
+         list.push(name);
+      } else {
+         list.splice(id, 1);
+      }
+      setFilter({ ...filter, locations: list })
+   }
+
    const renderLocations = () => (
       <div className="flex flex-col gap-1">
-         <strong>Location</strong>
-         <p className="text-ellipsis">
-            {filter.locations.join(', ') || 'All'}
+         <Menu title="Locations">
+            <div className="h-32 overflow-y-auto">
+
+               <button type="button" className="bg-gray-700 cursor-pointer text-white p-1 mb-2 text-left" onClick={() => setFilter({ ...filter, locations: [] })}>clear all</button>
+
+               {
+                  $distinct.query.data?.locations.map((name) => (
+                     <button type="button"
+                        className={`text-left bg-transparent cursor-pointer text-nowrap hover:font-bold ${filter.locations.includes(name) ? 'font-bold' : ''}`}
+                        key={name}
+                        onClick={handleLocation(name)}>{name}</button>
+                  ))
+               }
+            </div>
+         </Menu>
+         <p className="text-ellipsis text-nowrap">
+            {filter.locations.length === 0 && 'ALL'}
+            {filter.locations.length >= 1 && filter.locations[0]}
+            {filter.locations.length > 1 && `, +${filter.locations.length - 1}`}
          </p>
       </div>
    );
@@ -73,7 +100,7 @@ export const PropertyFilter = () => {
       <div className="flex flex-col gap-1">
          <strong>Max. price</strong>
          <input type="text"
-            className="border-0 bg-transparent ring-0"
+            className="border-0 bg-transparent ring-0 focus:outline-none"
             placeholder="no limit"
             value={filter.maxPrice === 0 ? '' : filter.maxPrice.toString()}
             onChange={handlePrice} />
