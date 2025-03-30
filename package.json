@@ -9,9 +9,11 @@
     "lint": "next lint",
     "db:delete": "rm database/db.sqlite",
     "db:create": "sqlite3 database/db.sqlite < database/create.sql",
-    "db:fill": "sqlite3 database/db.sqlite < database/data.sql"
+    "db:fill": "sqlite3 database/db.sqlite < database/data.sql",
+    "db:all": "npm run db:delete; npm run db:create; npm run db:fill"
   },
   "dependencies": {
+    "@tabler/icons-react": "^3.31.0",
     "@tanstack/react-query": "^5.70.0",
     "better-sqlite3": "^11.9.1",
     "motion": "^12.6.2",

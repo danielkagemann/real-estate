@@ -27,8 +27,6 @@ export default function Home() {
 
             <PropertyFilter onApply={handleResults} />
 
-            <p>found {$properties?.query?.data?.length ?? 0} properties</p>
-
           </div>
         </div>
         <div className="lg:w-1/2 sm:w-1/3">
@@ -38,6 +36,9 @@ export default function Home() {
 
       <Featured />
 
+      <div className="p-10">
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus neque voluptas deleniti? Nobis, temporibus eaque optio, porro totam corrupti enim recusandae laudantium sequi, incidunt praesentium iure placeat aperiam sint non.
+      </div>
     </main>
   );
 }
