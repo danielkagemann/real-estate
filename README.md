@@ -17,3 +17,16 @@ The design is related to what most of the real estate agency website offer.
 ## Screenshot
 
 ![alt text](screens/overview.png)
+
+### open todos
+
+- animations using motion
+- change hero image depending on property type selection
+- more fake data for performance testing
+- pagination of resultlist
+- detailview for a property
+- admin interface for adding new properties
+- add all missing pages like
+  - about us
+  - imprint
+  - data policy

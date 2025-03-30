@@ -35,7 +35,7 @@ export const Featured = () => {
                   }
                </div>
                <div className="font-bold pl-1 pr-1 text-[0.7rem] bg-black text-white p-1 absolute right-0 top-0">
-                  {property.price} EUR
+                  {property.price.toLocaleString('de-DE')} EUR
                </div>
             </div>
          </div>
