@@ -20,7 +20,9 @@ export default function RootLayout({
         className="antialiased"
       >
         <QueryClientProvider client={queryClient}>
-          {children}
+          <main className='min-h-svh'>
+            {children}
+          </main>
         </QueryClientProvider>
       </body>
     </html >
