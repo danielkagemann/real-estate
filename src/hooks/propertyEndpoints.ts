@@ -33,23 +33,17 @@ export function useGetFeaturedProperties() {
   });
 }
 
-export function useGetProperties() {
-  const [filters, setFilters] = useState<Filters>(filterSchema.parse({}));
-
-  return {
-    filters,
-    setFilters,
-    query: useQuery<Property[]>({
-      queryKey: ["properties", filters],
-      queryFn: async () => {
-        const res = await fetch("/api/properties", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(filters),
-        });
-        if (!res.ok) throw new Error("Fehler beim Laden der Immobilien");
-        return res.json();
-      },
-    }),
-  };
+export function useGetProperties(filter: Filters) {
+  return useQuery<Property[]>({
+    queryKey: ["properties", filter],
+    queryFn: async () => {
+      const res = await fetch("/api/properties", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(filter),
+      });
+      if (!res.ok) throw new Error("Fehler beim Laden der Immobilien");
+      return res.json();
+    },
+  });
 }
