@@ -3,6 +3,7 @@ import { filterSchema, Property } from "@/models/schema";
 import { motion } from "motion/react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { Tag } from "../ui/Tag";
 
 export const PropertyResultList = () => {
    const searchParams = useSearchParams()
@@ -32,6 +33,9 @@ export const PropertyResultList = () => {
                   </div>
                   <h3 className="text-base font-bold">{item.title}</h3>
                   <p className="text-xs">{item.description}</p>
+                  <div className="flex justify-start text-xs">
+                     <Tag filled>{item.type}</Tag>
+                  </div>
                </div>
             </Link>
          </motion.div>

@@ -2,7 +2,7 @@ import { FC, PropsWithChildren } from "react";
 
 type TagProps = {
    filled?: boolean,
-   onClick: () => void
+   onClick?: () => void
 };
 
 export const Tag: FC<PropsWithChildren<TagProps>> = ({ filled = false, children, onClick }) => {
