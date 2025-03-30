@@ -7,9 +7,6 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 
-// please note that I added a query attribute for accessing the useQuery
-// sometimes, depending on the hook some other data is exported which might change the query as well
-
 export function useGetDistinctFilter() {
   return {
     query: useQuery<DistinctFilters>({
