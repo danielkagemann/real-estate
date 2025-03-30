@@ -1,6 +1,7 @@
 import { useGetAgents } from "@/hooks/agentEndpoints"
 import { Agent } from "@/models/schema";
 import { IconMail, IconPhone } from "@tabler/icons-react";
+import { SkeletonLoader } from "../ui/SkeletonLoader";
 
 export const Agents = () => {
    const $agents = useGetAgents();
@@ -18,7 +19,19 @@ export const Agents = () => {
       </div>
    )
 
-   // FIXME loading agents skeleton
+   if ($agents.isLoading) {
+      return (
+         <div className="p-10">
+            <SkeletonLoader className="w-1/6 h-4 mb-2" />
+            <div className="w-full flex justify-start overflow-x-scroll text-xs gap-4">
+               <SkeletonLoader className="w-2/6 h-12 mb-2" />
+               <SkeletonLoader className="w-2/6 h-12 mb-2" />
+               <SkeletonLoader className="w-2/6 h-12 mb-2" />
+            </div>
+         </div>
+      )
+   }
+
    return (
       <div className="p-10">
          <strong>Our agents</strong>
