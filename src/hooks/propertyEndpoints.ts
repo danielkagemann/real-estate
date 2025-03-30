@@ -8,33 +8,29 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 
 export function useGetDistinctFilter() {
-  return {
-    query: useQuery<DistinctFilters>({
-      queryKey: ["distinct"],
-      queryFn: async () => {
-        const res = await fetch("/api/properties/filter");
-        if (!res.ok) {
-          throw new Error("Fehler beim Laden der Filterdaten");
-        }
-        return res.json();
-      },
-    }),
-  };
+  return useQuery<DistinctFilters>({
+    queryKey: ["distinct"],
+    queryFn: async () => {
+      const res = await fetch("/api/properties/filter");
+      if (!res.ok) {
+        throw new Error("Fehler beim Laden der Filterdaten");
+      }
+      return res.json();
+    },
+  });
 }
 
 export function useGetFeaturedProperties() {
-  return {
-    query: useQuery<Property[]>({
-      queryKey: ["featured"],
-      queryFn: async () => {
-        const res = await fetch("/api/properties/featured");
-        if (!res.ok) {
-          throw new Error("Fehler beim Laden der featured projekte");
-        }
-        return res.json();
-      },
-    }),
-  };
+  return useQuery<Property[]>({
+    queryKey: ["featured"],
+    queryFn: async () => {
+      const res = await fetch("/api/properties/featured");
+      if (!res.ok) {
+        throw new Error("Fehler beim Laden der featured projekte");
+      }
+      return res.json();
+    },
+  });
 }
 
 export function useGetProperties() {

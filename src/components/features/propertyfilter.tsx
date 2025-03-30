@@ -38,7 +38,7 @@ export const PropertyFilter = () => {
                <button type="button" className="bg-gray-700 cursor-pointer text-white p-1 mb-2 text-left" onClick={() => setFilter({ ...filter, locations: [] })}>clear all</button>
 
                {
-                  $distinct.query.data?.locations.map((name) => (
+                  $distinct.data?.locations.map((name) => (
                      <button type="button"
                         className={`text-left bg-transparent cursor-pointer text-nowrap hover:font-bold ${filter.locations.includes(name) ? 'font-bold' : ''}`}
                         key={name}
@@ -81,7 +81,7 @@ export const PropertyFilter = () => {
          <strong>Property type</strong>
          <div className="flex flex-row gap-1 items-center">
             {
-               $distinct.query.data?.types.map((type) => (
+               $distinct.data?.types.map((type) => (
                   <Tag key={type}
                      onClick={toggleType(type)}
                      filled={filter.types.includes(type as TypeEnum)}>{type}</Tag>

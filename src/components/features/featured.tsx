@@ -1,6 +1,7 @@
 import { useGetFeaturedProperties } from "@/hooks/propertyEndpoints";
 import { Property } from "@/models/schema";
 import { IconBuildingCommunity, IconBath, IconBed } from "@tabler/icons-react";
+import { SkeletonLoader } from "../ui/SkeletonLoader";
 
 export const Featured = () => {
    const $featured = useGetFeaturedProperties()
@@ -41,11 +42,20 @@ export const Featured = () => {
       );
    }
 
+   if ($featured.isLoading) {
+      return (<div className="p-10">
+         <SkeletonLoader className="w-1/6 h-4 mb-2" />
+         <div className="flex gap-8 w-full justify-between">
+            <SkeletonLoader className="w-2/6 h-20 mb-2" />
+         </div>
+      </div>)
+   }
+
    return (
       <div className="p-10">
          <h2 className="text-xl font-bold pb-2">Top featured projects</h2>
          <div className="flex gap-8 w-full justify-between">
-            {$featured.query.data?.map(renderProperty)}
+            {$featured.data?.map(renderProperty)}
          </div>
       </div>
    );
