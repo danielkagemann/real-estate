@@ -1,5 +1,3 @@
-import { useGetProperties } from "@/hooks/propertyEndpoints";
-import { Filters } from "@/models/schema";
 import { PropertyFilter } from "./propertyfilter";
 import { FC } from "react";
 
@@ -8,13 +6,6 @@ type HeroProps = {
 }
 
 export const Hero: FC<HeroProps> = ({ compact = false }) => {
-   const $properties = useGetProperties()
-
-   const handleResults = (flt: Filters) => {
-      // FIXME: handle routing
-      // router.push({ pathname: '/search', query: { ...flt } })
-   }
-
    return (
       <div className={`flex w-full ${compact ? '' : 'h-[80vh]'}`}>
          <div className="lg:w-1/2 sm:w-2/3 flex items-center">
@@ -26,7 +17,7 @@ export const Hero: FC<HeroProps> = ({ compact = false }) => {
                      Start your journey today and explore the best real estate Spain has to offer.</p>
                </div>
 
-               <PropertyFilter onApply={handleResults} />
+               <PropertyFilter />
 
             </div>
          </div>
