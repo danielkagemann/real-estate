@@ -23,5 +23,6 @@ CREATE TABLE agents (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   name TEXT NOT NULL,
   email TEXT,
-  phone TEXT
+  phone TEXT,
+  image TEXT
 );

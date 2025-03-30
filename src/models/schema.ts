@@ -5,6 +5,7 @@ export const agentSchema = z.object({
   name: z.string().min(1),
   email: z.string().email(),
   phone: z.string().optional(),
+  image: z.string().optional(),
 });
 
 export const typeEnumSchema = z.enum(["villa", "apartment", "finca"]);

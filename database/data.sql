@@ -1,8 +1,8 @@
 -- Insert agents
-INSERT INTO agents (name, email, phone) VALUES
-('James Wilson', 'james.wilson@coastalproperties.com', '+34 612 345 678'),
-('Sofia Martinez', 'sofia.martinez@mediterraneanhomes.com', '+34 623 456 789'),
-('Daniel Thompson', 'daniel.thompson@sunnyestates.com', '+34 634 567 890');
+INSERT INTO agents (name, email, phone, image) VALUES
+('James Wilson', 'james.wilson@coastalproperties.com', '+34 612 345 678', 'https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg'),
+('Sofia Martinez', 'sofia.martinez@mediterraneanhomes.com', '+34 623 456 789', 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg'),
+('Daniel Thompson', 'daniel.thompson@sunnyestates.com', '+34 634 567 890', 'https://images.pexels.com/photos/2380795/pexels-photo-2380795.jpeg');
 
 -- Insert properties
 INSERT INTO properties (title, description, location, type, price, newbuild, build, area, plot, bedrooms, bathrooms, private_pool, parking, images, agent_id, created) VALUES
