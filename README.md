@@ -21,10 +21,14 @@ The design is related to what most of the real estate agency website offer.
 ### open todos
 
 - animations using motion
+- custom cursor (DETAIL) on hover
 - change hero image depending on property type selection
 - more fake data for performance testing
+- comparison of two properties
 - pagination of resultlist
-- detailview for a property
+- detailview for a property with map
+- image slider in list
+- image slider in details
 - admin interface for adding new properties
 - add all missing pages like
   - about us

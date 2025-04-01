@@ -1,3 +1,5 @@
+"use client"
+
 import { Filters, filterSchema, TypeEnum } from "@/models/schema";
 import { FormEvent, useState } from "react";
 import { Tag } from "../ui/Tag";

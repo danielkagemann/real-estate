@@ -41,8 +41,17 @@ export const filterSchema = z.object({
   maxPrice: z.number().min(0).default(0),
 });
 
+export const agentContactSchema = z.object({
+  name: z.string().min(1).default(""),
+  email: z.string().email().default(""),
+  phone: z.string().optional(),
+  message: z.string().min(1).default(""),
+  propertyId: z.number().default(0),
+});
+
 export type TypeEnum = z.infer<typeof typeEnumSchema>;
 export type Property = z.infer<typeof propertySchema>;
 export type Filters = z.infer<typeof filterSchema>;
 export type DistinctFilters = z.infer<typeof distinctFilters>;
 export type Agent = z.infer<typeof agentSchema>;
+export type AgentContact = z.infer<typeof agentContactSchema>;

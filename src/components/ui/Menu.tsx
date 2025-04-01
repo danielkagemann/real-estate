@@ -1,23 +1,43 @@
-import { FC, PropsWithChildren, useState } from "react";
+import { IconChevronDown } from "@tabler/icons-react";
+import { FC, PropsWithChildren, useState, useEffect, useRef } from "react";
 
 type MenuProps = {
-   title: string
-}
+   title: string;
+};
 
 export const Menu: FC<PropsWithChildren<MenuProps>> = ({ title, children }) => {
    const [open, setOpen] = useState<boolean>(false);
+   const menuRef = useRef<HTMLDivElement>(null);
 
    function handleClick() {
       setOpen(prev => !prev);
    }
 
+   useEffect(() => {
+      function handleClickOutside(event: MouseEvent) {
+         if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+            setOpen(false);
+         }
+      }
+
+      if (open) {
+         document.addEventListener("mousedown", handleClickOutside);
+      } else {
+         document.removeEventListener("mousedown", handleClickOutside);
+      }
+
+      return () => {
+         document.removeEventListener("mousedown", handleClickOutside);
+      };
+   }, [open]);
+
    return (
-      <div className="relative" >
+      <div className="relative" ref={menuRef}>
          <button type="button" className="flex gap-2 cursor-pointer" onClick={handleClick}>
             <strong>{title}</strong>
-            <svg className={open ? "transition-all rotate-180" : "transition-all"} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M6 9l6 6l6 -6" /></svg>
+            <IconChevronDown className={open ? "transition-all rotate-180" : "transition-all"} size={14} />
          </button>
-         {open && <div className="bg-white border-1 border-gray-400 rounded-md absolute p-2 flex flex-col">{children}</div>}
+         {open && <div className="bg-white border border-gray-400 rounded-md absolute p-2 flex flex-col">{children}</div>}
       </div>
    );
 };

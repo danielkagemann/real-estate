@@ -1,11 +1,5 @@
-import {
-  DistinctFilters,
-  Filters,
-  filterSchema,
-  Property,
-} from "@/models/schema";
+import { DistinctFilters, Filters, Property } from "@/models/schema";
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
 
 export function useGetDistinctFilter() {
   return useQuery<DistinctFilters>({
@@ -20,6 +14,13 @@ export function useGetDistinctFilter() {
   });
 }
 
+type PropertyItem = Property & {
+  agent_name: string;
+  agent_email: string;
+  agent_phone: string;
+  agent_image: string;
+};
+
 export function useGetFeaturedProperties() {
   return useQuery<Property[]>({
     queryKey: ["featured"],
@@ -28,6 +29,20 @@ export function useGetFeaturedProperties() {
       if (!res.ok) {
         throw new Error("Fehler beim Laden der featured projekte");
       }
+      return res.json();
+    },
+  });
+}
+
+export function useGetProperty(id: string) {
+  return useQuery<PropertyItem>({
+    queryKey: ["property", id],
+    queryFn: async () => {
+      const res = await fetch(`/api/properties/${id}`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
+      if (!res.ok) throw new Error("Fehler beim Laden der Immobilie");
       return res.json();
     },
   });

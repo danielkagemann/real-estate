@@ -29,8 +29,6 @@ export async function POST(req: NextRequest) {
     where.length ? " WHERE " + where.join(" AND ") : ""
   }`;
 
-  console.log(sql, params);
-
   const stmt = db.prepare(sql);
   const properties = stmt.all(...params);
 
