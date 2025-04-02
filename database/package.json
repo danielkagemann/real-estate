@@ -1,0 +1,16 @@
+{
+  "name": "database",
+  "version": "1.0.0",
+  "main": "data-generator.js",
+  "scripts": {
+    "links": "cd unsplash-data && node generate.js",
+    "all": "npm run links && node data-generator.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@faker-js/faker": "^9.6.0",
+    "sqlite3": "^5.1.7"
+  }
+}

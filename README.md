@@ -18,19 +18,61 @@ The design is related to what most of the real estate agency website offer.
 
 ![alt text](screens/overview.png)
 
+### build
+
+All the data is fake and not related to any existing estate. The images are taken from unsplash using the ![lite dataset](https://github.com/unsplash/datasets/tree/master).
+This data is NOT in the repo. Make sure you download keywords.tsv and photos.tsv and put it into database/unsplash-data.
+
+To generate the database with fakedata please run
+
+```
+# move to application folder
+cd real-estate
+
+# create initial database (if already existing use npm run db:all)
+npm run db:create
+npm run db:fill
+
+# start dev server
+npm run dev
+```
+
 ### open todos
 
+here is a list of open todos grouped by section
+
+##### fake data generator
+
+- create fake data generator instead of using openai
+
+##### general
+
+- breadcrumb navigation
+- unit tests
 - animations using motion
-- custom cursor (DETAIL) on hover
+- custom cursor (DETAIL) on hover (prepared but not working)
 - change hero image depending on property type selection
 - more fake data for performance testing
-- comparison of two properties
-- pagination of resultlist
-- detailview for a property with map
-- image slider in list
-- image slider in details
-- admin interface for adding new properties
 - add all missing pages like
   - about us
   - imprint
   - data policy
+
+##### resultlist
+
+- pagination of resultlist
+- sorting
+- image slider in list
+
+##### details
+
+- detailview for a property with map
+
+##### compare
+
+- comparison of two properties
+
+##### administration
+
+- authentication
+- admin interface for adding new properties

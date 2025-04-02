@@ -7,9 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "e2e": "npx playwright test",
     "db:delete": "rm database/db.sqlite",
     "db:create": "sqlite3 database/db.sqlite < database/create.sql",
-    "db:fill": "sqlite3 database/db.sqlite < database/data.sql",
+    "db:fill": "cd database && npm run all",
     "db:all": "npm run db:delete; npm run db:create; npm run db:fill"
   },
   "dependencies": {
@@ -24,6 +25,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@playwright/test": "^1.51.1",
     "@tailwindcss/postcss": "^4",
     "@types/better-sqlite3": "^7.6.12",
     "@types/node": "^20",

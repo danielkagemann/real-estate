@@ -25,7 +25,7 @@ export const AgentFormular = ({ id, agent, image }: FormularProps) => {
    return (
       <div className="flex.flex-IconRowInsertBottom.gap-1">
          <div className="flex justify-between">
-            <div className="flex flex-col">
+            <div className="flex flex-col leading-none">
                <h2 className="text-lg font-bold">Your agent for this property</h2>
                <div className="text-base">{agent}</div>
             </div>
