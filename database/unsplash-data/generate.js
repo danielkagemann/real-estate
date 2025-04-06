@@ -35,14 +35,35 @@ const readPhotos = () => {
   });
 };
 
-const getList = (word, num) => {
-  const match = keywords[word];
-  if (match) {
-    // shuffle array to get random order
-    const ids = shuffleArray(match).slice(0, num);
-    return ids.map((id) => photos[id] ?? "").filter((url) => url !== "");
-  }
-  return [];
+const getList = (list, num) => {
+  // only catch links which matches ALL the keywords
+  // collect all links for each keyword
+  const links = {};
+  list.forEach((word) => {
+    const match = keywords[word];
+    if (match) {
+      match.forEach((id) => {
+        if (!links[id]) {
+          links[id] = [];
+        }
+        links[id].push(word);
+      });
+    }
+  });
+
+  // filter out links which matches not ALL the keywords
+  const filtered = Object.keys(links).filter((id) => {
+    return links[id].length === list.length;
+  });
+  // shuffle array to get random order
+  const shuffled = shuffleArray(filtered);
+  // get random ids
+  const ids = shuffled.slice(0, num);
+  // get urls for ids
+  const urls = ids
+    .map((id) => (photos[id] ? photos[id] + "?w=1024&dpr=2" : ""))
+    .filter((url) => url !== "" && !url.includes("premium"));
+  return urls;
 };
 
 console.log("first of all read keyword file");
@@ -60,20 +81,25 @@ console.log("...done preparing the photos", Object.keys(photos).length);
 console.log("finally generate link file");
 
 const json = {
-  agents: getList("portrait", 10),
-  beach: getList("beach", 50),
-  villa: getList("villa", 300),
-  finca: getList("hacienda", 30),
-  apartment: getList("apartment", 300),
-  bathroom: getList("bathroom", 20),
-  bedroom: getList("bedroom", 20),
-  livingroom: getList("livingroom", 20),
-  kitchen: getList("kitchen", 20),
-  pool: getList("pool", 10),
+  agents: getList(["portrait", "face"], 10),
+  beach: getList(["beach"], 50),
+  villa: getList(["villa", "house"], 300),
+  finca: getList(["hacienda"], 30),
+  apartment: getList(["loft"], 300),
+  bathroom: getList(["bathroom"], 20),
+  bedroom: getList(["bed", "room"], 20),
+  livingroom: getList(["livingroom"], 20),
+  kitchen: getList(["kitchen", "room"], 20),
+  pool: getList(["pool"], 10),
 };
 
 try {
   fs.writeFileSync("image-links.json", JSON.stringify(json, null, 3));
+
+  console.log("SUMMARY");
+  Object.keys(json).forEach((key) => {
+    console.log("   ", json[key].length, key);
+  });
   console.log("File written successfully!");
 } catch (err) {
   console.error("Error writing file:", err);

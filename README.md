@@ -41,18 +41,13 @@ npm run dev
 
 here is a list of open todos grouped by section
 
-##### fake data generator
-
-- create fake data generator instead of using openai
-
 ##### general
 
 - breadcrumb navigation
-- unit tests
+- unit tests and integration tests with playwright
 - animations using motion
 - custom cursor (DETAIL) on hover (prepared but not working)
 - change hero image depending on property type selection
-- more fake data for performance testing
 - add all missing pages like
   - about us
   - imprint

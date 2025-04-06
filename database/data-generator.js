@@ -1,6 +1,8 @@
 const sqlite3 = require("sqlite3").verbose();
 const { faker } = require("@faker-js/faker");
 const imageLinks = require("./unsplash-data/image-links.json");
+const configuration = require("./config.js");
+const { config } = require("process");
 
 const db = new sqlite3.Database("db.sqlite");
 
@@ -84,35 +86,16 @@ const propertyDescriptions = {
   ],
 };
 
-const cities = [
-  "Alicante",
-  "Benidorm",
-  "Torrevieja",
-  "Denia",
-  "Jávea",
-  "Calpe",
-  "Altea",
-  "Villajoyosa",
-  "Santa Pola",
-  "Elche",
-  "Moraira",
-  "Guardamar del Segura",
-  "Albir",
-  "Benissa",
-  "Teulada",
-  "Orihuela Costa",
-  "La Nucia",
-  "Pego",
-  "Rojales",
-  "San Fulgencio",
-];
-
+// FIXME: using image url from faker instead of generated links
 function createAgent() {
+  const male = Math.random() < 0.5;
+
   return {
-    name: faker.person.fullName(),
+    name: faker.person.fullName({ sex: male ? "male" : "female" }),
     email: faker.internet.email(),
     phone: faker.phone.number(),
-    image: faker.helpers.arrayElement(imageLinks.agents),
+    // image: faker.helpers.arrayElement(imageLinks.agents),
+    image: faker.image.personPortrait({ sex: male ? "male" : "female" }),
   };
 }
 
@@ -139,19 +122,19 @@ function createProperty(agentId) {
   return {
     title: faker.helpers.arrayElement(propertyTitles[type]),
     description: faker.helpers.arrayElement(propertyDescriptions[type]),
-    location: faker.helpers.arrayElement(cities),
+    location: faker.helpers.arrayElement(configuration.cities),
     type,
-    price: faker.number.int({ min: 50000, max: 5000000 }),
+    price: faker.number.int(configuration.priceRange),
     newbuild: faker.datatype.boolean() ? 1 : 0,
-    build: faker.number.int({ min: 1980, max: 2025 }),
-    area: faker.number.int({ min: 50, max: 1000 }),
+    build: faker.number.int(configuration.buildYear),
+    area: faker.number.int(configuration.buildSize),
     plot:
-      type === "apartment" ? null : faker.number.int({ min: 100, max: 5000 }),
-    bedrooms: faker.number.int({ min: 1, max: 10 }),
-    bathrooms: faker.number.int({ min: 1, max: 5 }),
+      type === "apartment" ? null : faker.number.int(configuration.plotSize),
+    bedrooms: faker.number.int(configuration.numberOfBedrooms),
+    bathrooms: faker.number.int(configuration.numberOfBathrooms),
     private_pool: faker.datatype.boolean() ? 1 : 0,
-    parking: faker.number.int({ min: 0, max: 5 }),
-    images: images.join(","),
+    parking: faker.number.int(configuration.parkingSlots),
+    images: JSON.stringify(images),
     agent_id: agentId,
   };
 }
@@ -199,18 +182,18 @@ function insertProperty(property) {
   );
 }
 
-function generateData(numProperties = 30) {
+function generateData() {
   const agents = [];
-  // create 3 agents
-  for (let i = 0; i < 3; i++) {
+  // create agents
+  for (let i = 0; i < configuration.numberOfAgents; i++) {
     let agent = createAgent();
     insertAgent(agent, (agentId) => {
       agents.push(agentId);
 
       // because we are async we check for last agent before we continue
-      if (agents.length === 3) {
+      if (agents.length === configuration.numberOfAgents) {
         // create properties
-        for (let j = 0; j < numProperties; j++) {
+        for (let j = 0; j < configuration.numberOfProperties; j++) {
           let assignedAgent = faker.helpers.arrayElement(agents);
           let property = createProperty(assignedAgent);
           insertProperty(property);

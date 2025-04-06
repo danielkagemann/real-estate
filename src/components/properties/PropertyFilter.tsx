@@ -35,10 +35,8 @@ export const PropertyFilter = () => {
    const renderLocations = () => (
       <div className="flex flex-col gap-1">
          <Menu title="Locations">
-            <div className="h-32 overflow-y-auto">
-
-               <button type="button" className="bg-gray-700 cursor-pointer text-white p-1 mb-2 text-left" onClick={() => setFilter({ ...filter, locations: [] })}>clear all</button>
-
+            <div className="h-32 overflow-y-auto flex flex-col gap-1">
+               <button type="button" className="bg-gray-700 cursor-pointer text-white p-1 mb-2" onClick={() => setFilter({ ...filter, locations: [] })}>clear all</button>
                {
                   $distinct.data?.locations.map((name) => (
                      <button type="button"
@@ -63,7 +61,7 @@ export const PropertyFilter = () => {
       filter.locations.forEach(loc => params.append('locations', loc))
       filter.types.forEach(type => params.append('types', type))
       params.set('maxPrice', String(filter.maxPrice))
-      router.push(`/search?${params.toString()}`)
+      router.push(`/properties?${params.toString()}`)
    }
 
    const toggleType = (value: string) => () => {

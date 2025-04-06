@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { PropertyFilter } from "../properties/PropertyFilter";
+import { Breadcrumb } from "./Breadcrumb";
 
 export enum HeroSize {
    standard,
@@ -25,16 +26,19 @@ const HeaderMessage = () => (
 export const Hero: FC<HeroProps> = ({ size = HeroSize.standard }) => {
    if (size === HeroSize.mini) {
       return (
-         <div className="pl-10 pb-4 pt-10">
+         <div className="pl-10 pb-4 pt-10 sticky top-0 z-50 bg-white">
+            <Breadcrumb />
             <HeaderTitle />
          </div>
       )
    }
 
    return (
-      <div className={`flex w-full ${size === HeroSize.small ? '' : 'h-[80vh]'}`}>
+      <div className={`flex w-full ${size === HeroSize.small ? 'sticky top-0 z-50 bg-white' : 'h-[80vh]'}`}>
          <div className="lg:w-1/2 sm:w-2/3 flex items-center">
             <div className="p-10">
+               <Breadcrumb />
+
                <HeaderTitle />
                <HeaderMessage />
                <PropertyFilter />

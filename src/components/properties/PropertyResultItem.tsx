@@ -14,7 +14,7 @@ export const PropertyResultItem: FC<PropertyResultItemProps> = ({ item }) => {
    return (
       <div key={item.id}
          className="relative hover:detail-cursor">
-         <Link href={`/details/${item.id}`}
+         <Link href={`/properties/details/${item.id}`}
             className="flex w-full h-[150px] gap-2 bg-gray-100 mb-1 overflow-clip">
 
             <img src={image} alt="property:image" className="min-w-[250px] max-w-[250px] h-full opacity-80 object-cover overflow-clip" />
