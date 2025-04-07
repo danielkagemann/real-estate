@@ -2,6 +2,7 @@ import { Property } from "@/models/schema"
 import { IconBath, IconBed, IconBuildingCommunity } from "@tabler/icons-react"
 import { FC } from "react"
 import { Price } from "../ui/Price"
+import Link from "next/link"
 
 type PropertyProps = {
    item: Property
@@ -10,8 +11,11 @@ type PropertyProps = {
 export const PropertyFeature: FC<PropertyProps> = ({ item }) => {
    const image = JSON.parse(item?.images ?? "[]")
    return (
-      <div key={item.id} className="relative text-xs w-full shadow bg-white rounded-md">
-         <div className="bg-no-repeat w-full h-[120px] bg-cover rounded-md" style={{
+      <Link href={`/properties/details/${item.id}`}
+         key={item.id}
+         className="relative text-xs w-full shadow bg-white rounded-md hover-detail-cursor">
+
+         <div className="bg-no-repeat w-full h-[160px] bg-cover rounded-md" style={{
             backgroundImage: `url(${image[0]})`
          }} />
          <div className="p-2">
@@ -37,6 +41,6 @@ export const PropertyFeature: FC<PropertyProps> = ({ item }) => {
             </div>
             <Price>{item.price}</Price>
          </div>
-      </div>
+      </Link>
    );
 }

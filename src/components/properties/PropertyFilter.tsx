@@ -15,9 +15,11 @@ export const PropertyFilter = () => {
    const locations = searchParams.getAll('locations')
    const types = searchParams.getAll('types')
    const maxPrice = Number(searchParams.get('maxPrice'))
+   const page = Number(searchParams.get('page')) || 1
+   const size = Number(searchParams.get('size')) || 10
 
    const router = useRouter()
-   const [filter, setFilter] = useState<Filters>(filterSchema.parse({ locations, types, maxPrice }));
+   const [filter, setFilter] = useState<Filters>(filterSchema.parse({ locations, types, maxPrice, page, size }));
 
    const $distinct = useGetDistinctFilter()
 
@@ -61,6 +63,8 @@ export const PropertyFilter = () => {
       filter.locations.forEach(loc => params.append('locations', loc))
       filter.types.forEach(type => params.append('types', type))
       params.set('maxPrice', String(filter.maxPrice))
+      params.set('page', '1') // set back to page 1
+      params.set('size', String(filter.size))
       router.push(`/properties?${params.toString()}`)
    }
 

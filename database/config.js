@@ -1,13 +1,13 @@
 module.exports = {
-  numberOfAgents: 3,
-  numberOfProperties: 1000,
+  numberOfAgents: 6,
+  numberOfProperties: 5000,
   numberOfBedrooms: { min: 1, max: 4 },
   numberOfBathrooms: { min: 1, max: 2 },
   plotSize: { min: 100, max: 1500 },
   buildSize: { min: 40, max: 350 },
   buildYear: { min: 2000, max: 2023 },
   parkingSlots: { min: 0, max: 3 },
-  priceRange: { min: 50000, max: 800000, multipleOf: 10 },
+  priceRange: { min: 50000, max: 800000, multipleOf: 1000 },
 
   cities: [
     "Alicante",

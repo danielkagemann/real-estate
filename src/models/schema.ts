@@ -39,6 +39,8 @@ export const filterSchema = z.object({
   locations: z.array(z.string()).default([]),
   types: z.array(typeEnumSchema).default(["villa", "apartment", "finca"]),
   maxPrice: z.number().min(0).default(0),
+  page: z.number().int().min(1).default(1),
+  size: z.number().int().default(10),
 });
 
 export const agentContactSchema = z.object({
@@ -49,8 +51,17 @@ export const agentContactSchema = z.object({
   propertyId: z.number().default(0),
 });
 
+export const propertyResponseSchema = z.object({
+  properties: z.array(propertySchema),
+  total: z.number().int().nonnegative(),
+  pages: z.number().int().nonnegative(),
+  page: z.number().int().nonnegative(),
+  limit: z.number().int().nonnegative(),
+});
+
 export type TypeEnum = z.infer<typeof typeEnumSchema>;
 export type Property = z.infer<typeof propertySchema>;
+export type PropertyResponse = z.infer<typeof propertyResponseSchema>;
 export type Filters = z.infer<typeof filterSchema>;
 export type DistinctFilters = z.infer<typeof distinctFilters>;
 export type Agent = z.infer<typeof agentSchema>;

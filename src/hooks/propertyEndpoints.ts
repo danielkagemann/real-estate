@@ -1,4 +1,9 @@
-import { DistinctFilters, Filters, Property } from "@/models/schema";
+import {
+  DistinctFilters,
+  Filters,
+  Property,
+  PropertyResponse,
+} from "@/models/schema";
 import { useQuery } from "@tanstack/react-query";
 
 export function useGetDistinctFilter() {
@@ -49,7 +54,7 @@ export function useGetProperty(id: string) {
 }
 
 export function useGetProperties(filter: Filters) {
-  return useQuery<Property[]>({
+  return useQuery<PropertyResponse>({
     queryKey: ["properties", filter],
     queryFn: async () => {
       const res = await fetch("/api/properties", {

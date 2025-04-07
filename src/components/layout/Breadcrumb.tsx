@@ -14,10 +14,10 @@ export const Breadcrumb = () => {
    const pathSegments = pathname.split("/").filter((item) => item !== "" && BREADCRUMBLABEL[item] !== undefined);
 
    return (
-      <nav aria-label="breadcrumb" className="text-sm my-4">
+      <nav aria-label="breadcrumb" className="text-xs my-4">
          <ul className="flex space-x-2">
             <li>
-               <Link href="/" className="text-gray-700 hover:underline">Home</Link>
+               <Link href="/" className="font-bold hover:underline">Home</Link>
             </li>
             {pathSegments.map((segment, index) => {
 
@@ -29,7 +29,7 @@ export const Breadcrumb = () => {
                      <span className="mx-2">/</span>
                      {index === pathSegments.length - 1 ? (
                         <span className="text-gray-700">{label}</span>) :
-                        (<Link href={url} className="text-gray-700 hover:underline">
+                        (<Link href={url} className="font-bold hover:underline">
                            {label}
                         </Link>
                         )}

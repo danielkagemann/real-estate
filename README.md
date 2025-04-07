@@ -43,10 +43,8 @@ here is a list of open todos grouped by section
 
 ##### general
 
-- breadcrumb navigation
 - unit tests and integration tests with playwright
 - animations using motion
-- custom cursor (DETAIL) on hover (prepared but not working)
 - change hero image depending on property type selection
 - add all missing pages like
   - about us
