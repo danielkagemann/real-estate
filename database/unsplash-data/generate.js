@@ -81,7 +81,7 @@ console.log("...done preparing the photos", Object.keys(photos).length);
 console.log("finally generate link file");
 
 const json = {
-  agents: getList(["portrait", "face"], 10),
+  agents: getList(["portrait", "face"], 20),
   beach: getList(["beach"], 50),
   villa: getList(["villa", "house"], 300),
   finca: getList(["hacienda"], 30),

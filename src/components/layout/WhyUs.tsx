@@ -1,10 +1,11 @@
-import { CheckItem } from "./Checkitem"
+import { CheckItem } from "../ui/Checkitem"
+import { Headline } from "../ui/Headline"
 
 export const WhyUs = () => {
    return (
       <div className="flex justify-between gap-4">
          <div className="w-2/3">
-            <h1 className="text-2xl font-bold">Why choose us?</h1>
+            <Headline>Why choose us?</Headline>
             <p>We provide an exceptional service and will lead you through all the buying process.
                Our experts will find the perfect home for you based on your requirements.</p>
             <CheckItem>expert agents</CheckItem>

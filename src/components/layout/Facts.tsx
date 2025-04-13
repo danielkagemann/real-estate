@@ -1,4 +1,5 @@
 import AnimateNumber from "../ui/AnimateNumber";
+import { Headline } from "../ui/Headline";
 
 export const Facts = () => {
    const data = [
@@ -17,7 +18,7 @@ export const Facts = () => {
    ]
    return (
       <>
-         <h1 className="text-2xl font-bold">Facts</h1>
+         <Headline>Facts</Headline>
          <div className="flex-flex-col gap-4">
             {data.map((item, index) => (
                <div key={index} className="flex w-full justify-start items-center gap-4  border-b-2 border-gray-300 pb-4 pt-4">

@@ -43,9 +43,9 @@ here is a list of open todos grouped by section
 
 ##### general
 
+- error handling
 - unit tests and integration tests with playwright
 - animations using motion
-- change hero image depending on property type selection
 - add all missing pages like
   - about us
   - imprint

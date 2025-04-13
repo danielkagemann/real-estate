@@ -1,5 +1,5 @@
 module.exports = {
-  numberOfAgents: 6,
+  numberOfAgents: 4,
   numberOfProperties: 5000,
   numberOfBedrooms: { min: 1, max: 4 },
   numberOfBathrooms: { min: 1, max: 2 },
