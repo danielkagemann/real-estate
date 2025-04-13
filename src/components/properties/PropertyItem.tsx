@@ -14,7 +14,7 @@ export const PropertyItem = ({ property }: { property: Property }) => {
             <div className="absolute right-2 top-2 rounded-md bg-orange-600 text-white pt-1 pb-1 pl-2 pr-2 text-sm">{property.price.toLocaleString('de-DE')} EUR</div>
          </div>
 
-         <div className="truncate">{property.title}</div>
+         <div className="truncate text-lg">{property.title}</div>
          <div className="text-gray-500 text-md">{property.description}</div>
 
          <div className="flex justify-start gap-4 items-center text-gray-500 text-sm">

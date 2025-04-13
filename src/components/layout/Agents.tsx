@@ -10,7 +10,7 @@ export const Agents = () => {
    const renderAgent = (item: Agent) => (
       <div className="p-4 bg-gray-300 rounded-2xl flex-[1_1_calc(25%-1rem)]" key={item.id}>
          <div className="flex flex-col gap-2">
-            <img className="rounded-xl aspect-auto object-cover" src={item.image} alt="agent:image" />
+            <img className="rounded-xl aspect-4/3 object-cover" src={item.image} alt="agent:image" />
             <strong>{item.name}</strong>
             <div className="flex justify-start gap-2 items-center">
                <IconMail stroke={1} size={16} />

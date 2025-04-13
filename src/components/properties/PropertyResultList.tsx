@@ -3,6 +3,8 @@ import { filterSchema } from "@/models/schema";
 import { useSearchParams } from "next/navigation";
 import { PropertyResultItem } from "./PropertyResultItem";
 import Pagination from "./Pagination";
+import { Headline } from "../ui/Headline";
+import { PropertyItem } from "./PropertyItem";
 
 export const PropertyResultList = () => {
    const searchParams = useSearchParams()
@@ -15,13 +17,13 @@ export const PropertyResultList = () => {
    const $properties = useGetProperties(filterSchema.parse({ locations, types, maxPrice, page, size }))
 
    return (
-      <div className="p-10">
-         <h2 className="text-xl font-bold pb-2">{$properties.data?.total} dream properties found</h2>
-         <div className="flex flex-col gap-4">
-            {$properties.data?.properties.map((p) => <PropertyResultItem key={p.id} item={p} />)}
+      <>
+         <Headline>Results ({$properties.data?.total})</Headline>
+         <div className="flex gap-8 w-full flex-wrap">
+            {$properties.data?.properties.map((p) => <PropertyItem key={p.id} property={p} />)}
          </div>
          <Pagination limit={size} page={page} total={$properties.data?.total ?? 0} />
          <div className="pt-4" />
-      </div>
+      </>
    );
 }

@@ -5,6 +5,7 @@ import { Featured } from "@/components/featured/Featured";
 import { Facts } from "@/components/layout/Facts";
 import { Hero } from "@/components/layout/Hero";
 import { WhyUs } from "@/components/layout/WhyUs";
+import { Listings } from "@/components/layout/Listings";
 
 export default function Home() {
 
@@ -13,6 +14,8 @@ export default function Home() {
       <Hero />
       <div className="pb-12" />
       <WhyUs />
+      <div className="pb-12" />
+      <Listings />
       <div className="pb-12" />
       <Featured />
       <div className="pb-12" />

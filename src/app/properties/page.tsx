@@ -1,15 +1,15 @@
 "use client";
 
 import { Footer } from "@/components/layout/Footer";
-import { Hero, HeroSize } from "@/components/layout/Hero";
+import { Hero } from "@/components/layout/Hero";
+import { PropertyFilter } from "@/components/properties/PropertyFilter";
 import { PropertyResultList } from "@/components/properties/PropertyResultList";
 
 export default function Page() {
    return (
       <>
-         <Hero size={HeroSize.small} />
+         <PropertyFilter />
          <PropertyResultList />
-         <Footer />
       </>
    );
 }

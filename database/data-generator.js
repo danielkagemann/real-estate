@@ -1,8 +1,10 @@
 const sqlite3 = require("sqlite3").verbose();
 const { faker } = require("@faker-js/faker");
-const imageLinks = require("./unsplash-data/image-links.json");
 const configuration = require("./config.js");
-const { config } = require("process");
+// FIXME: replace with unsplash generated links if you want. but results
+// are not as good as the ones provided in the config file
+// const imageLinks = require("./unsplash-data/image-links.json");
+const imageLinks = configuration.images;
 
 const db = new sqlite3.Database("db.sqlite");
 
@@ -130,28 +132,34 @@ function createAgent() {
     name: faker.person.fullName({ sex: male ? "male" : "female" }),
     email: faker.internet.email(),
     phone: faker.phone.number(),
-    image: faker.image.personPortrait({ sex: male ? "male" : "female" }),
+    image: faker.helpers.arrayElement(
+      male ? imageLinks.male : imageLinks.female
+    ),
   };
 }
 
 function createProperty(agentId) {
   const type = faker.helpers.arrayElement(propertyTypes);
-
-  const images = [
-    faker.helpers.arrayElement(imageLinks.kitchen),
-    faker.helpers.arrayElement(imageLinks.livingroom),
-    faker.helpers.arrayElement(imageLinks.bedroom),
-    faker.helpers.arrayElement(imageLinks.bathroom),
-  ];
+  const images = [];
 
   if (type === "villa") {
     images.push(faker.helpers.arrayElement(imageLinks.villa));
     images.push(faker.helpers.arrayElement(imageLinks.pool));
     images.push(faker.helpers.arrayElement(imageLinks.beach));
+    images.push(faker.helpers.arrayElement(imageLinks.kitchen));
+    images.push(faker.helpers.arrayElement(imageLinks.livingroom));
+    images.push(faker.helpers.arrayElement(imageLinks.bedroom));
+    images.push(faker.helpers.arrayElement(imageLinks.bathroom));
   } else if (type === "apartment") {
     images.push(faker.helpers.arrayElement(imageLinks.apartment));
+    images.push(faker.helpers.arrayElement(imageLinks.bedroom));
+    images.push(faker.helpers.arrayElement(imageLinks.bathroom));
   } else if (type === "finca") {
     images.push(faker.helpers.arrayElement(imageLinks.finca));
+    images.push(faker.helpers.arrayElement(imageLinks.kitchen));
+    images.push(faker.helpers.arrayElement(imageLinks.livingroom));
+    images.push(faker.helpers.arrayElement(imageLinks.bedroom));
+    images.push(faker.helpers.arrayElement(imageLinks.bathroom));
   }
 
   return {

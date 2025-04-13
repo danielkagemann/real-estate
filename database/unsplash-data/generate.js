@@ -1,7 +1,7 @@
 const fs = require("fs");
 
-const keywords = {};
-const photos = {};
+const PHOTOTS = {};
+const KEYWORDS = {};
 
 const shuffleArray = (array) => {
   for (let i = array.length - 1; i > 0; i--) {
@@ -16,13 +16,10 @@ const readKeywords = () => {
   data.split("\n").forEach((line) => {
     const [id, word] = line.split("\t", 2);
 
-    // ignore keywords with spaces
-    if (id && word && !word.includes(" ")) {
-      if (!keywords[word]) {
-        keywords[word] = [];
-      }
-      keywords[word].push(id);
+    if (!KEYWORDS[id]) {
+      KEYWORDS[id] = [];
     }
+    KEYWORDS[id].push(word);
   });
 };
 
@@ -31,37 +28,36 @@ const readPhotos = () => {
 
   data.split("\n").forEach((line) => {
     const [id, , url] = line.split("\t", 3);
-    photos[id] = url;
+    PHOTOTS[id] = url;
   });
 };
 
 const getList = (list, num) => {
-  // only catch links which matches ALL the keywords
-  // collect all links for each keyword
-  const links = {};
-  list.forEach((word) => {
-    const match = keywords[word];
-    if (match) {
-      match.forEach((id) => {
-        if (!links[id]) {
-          links[id] = [];
-        }
-        links[id].push(word);
-      });
-    }
+  // get a subset of photos which match all keywords
+  const links = Object.keys(KEYWORDS).filter((k) => {
+    const image = KEYWORDS[k];
+    // check if image has all keywords
+    return list.every((word) => {
+      return image.includes(word);
+    });
   });
 
-  // filter out links which matches not ALL the keywords
-  const filtered = Object.keys(links).filter((id) => {
-    return links[id].length === list.length;
-  });
   // shuffle array to get random order
-  const shuffled = shuffleArray(filtered);
-  // get random ids
+  const shuffled = shuffleArray(links);
+
+  // slice out
   const ids = shuffled.slice(0, num);
+
+  // DEBUG OUTPUT
+  console.group("LIST: " + list.join(","));
+  ids.forEach((id) => {
+    console.log("-> ", KEYWORDS[id].join(","));
+  });
+  console.groupEnd();
+
   // get urls for ids
   const urls = ids
-    .map((id) => (photos[id] ? photos[id] + "?w=1024&dpr=2" : ""))
+    .map((id) => (PHOTOTS[id] ? PHOTOTS[id] + "?w=1024&dpr=2" : ""))
     .filter((url) => url !== "" && !url.includes("premium"));
   return urls;
 };
@@ -70,27 +66,43 @@ console.log("first of all read keyword file");
 readKeywords();
 console.log(
   "...done reading keyword file width " +
-    Object.keys(keywords).length +
+    Object.keys(KEYWORDS).length +
     " keywords"
 );
 
 console.log("now prepare the photos");
 readPhotos();
-console.log("...done preparing the photos", Object.keys(photos).length);
+console.log("...done preparing the photos", Object.keys(PHOTOTS).length);
 
 console.log("finally generate link file");
 
 const json = {
-  agents: getList(["portrait", "face"], 20),
-  beach: getList(["beach"], 50),
-  villa: getList(["villa", "house"], 300),
-  finca: getList(["hacienda"], 30),
-  apartment: getList(["loft"], 300),
-  bathroom: getList(["bathroom"], 20),
-  bedroom: getList(["bed", "room"], 20),
+  male: getList(
+    ["portrait", "face", "laughing", "smile", "beauty", "head", "photo", "man"],
+    20
+  ),
+  female: getList(
+    [
+      "portrait",
+      "face",
+      "laughing",
+      "smile",
+      "beauty",
+      "head",
+      "photo",
+      "woman",
+    ],
+    20
+  ),
+  beach: getList(["beach", "sand", "sun", "ocean", "waterfront"], 50),
+  villa: getList(["villa", "house", "building", "architecture"], 300),
+  finca: getList(["hacienda", "villa", "cabin", "countryside"], 30),
+  apartment: getList(["loft", "attic", "flooring", "building"], 300),
+  bathroom: getList(["bathroom", "shower"], 20),
+  bedroom: getList(["bed", "room", "sleep", "indoor", "furniture"], 20),
   livingroom: getList(["livingroom"], 20),
   kitchen: getList(["kitchen", "room"], 20),
-  pool: getList(["pool"], 10),
+  pool: getList(["pool", "water", "outside"], 10),
 };
 
 try {
