@@ -13,33 +13,18 @@ export const PropertyFeature: FC<PropertyProps> = ({ item }) => {
    return (
       <Link href={`/properties/details/${item.id}`}
          key={item.id}
-         className="relative text-xs w-full shadow bg-white rounded-md hover-detail-cursor">
+         className="relative w-full hover-detail-cursor">
 
-         <div className="bg-no-repeat w-full h-[160px] bg-cover rounded-md" style={{
-            backgroundImage: `url(${image[0]})`
-         }} />
-         <div className="p-2">
-            <p>{item.title}</p>
+         <div className="bg-no-repeat w-full aspect-3/2 bg-cover rounded-xl"
+            style={{
+               backgroundImage: `url(${image[0]})`
+            }} />
 
-            <div className="flex justify-between pt-1">
-               <div className="flex justify-start gap-2">
-                  <IconBed stroke={1} size={16} />
-                  {item.bedrooms}
-               </div>
-               <div className="flex justify-start gap-2">
-                  <IconBath stroke={1} size={16} />
-                  {item.bathrooms}
-               </div>
-               {
-                  item.plot ?
-                     <div className="flex justify-start gap-2">
-                        <IconBuildingCommunity stroke={1} size={16} />
-                        {item.plot}
-                     </div>
-                     : <span>&nbsp;</span>
-               }
-            </div>
-            <Price>{item.price}</Price>
+         <strong className="truncate">{item.title}</strong>
+
+         <div className="flex flex-row justify-between">
+            <div>{item.location}</div>
+            <div className="text-nowrap text-xs">{item.price.toLocaleString('de-DE')} EUR</div>
          </div>
       </Link>
    );

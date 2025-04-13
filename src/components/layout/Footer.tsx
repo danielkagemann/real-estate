@@ -1,10 +1,10 @@
 import Link from "next/link";
 
 export const Footer = () => (
-   <footer className="bg-black text-white text-xs p-10">
-      <div className="flex justify-between">
+   <footer className="bg-black text-white">
+      <div className="flex justify-between w-7xl mx-auto pt-8 pb-8">
          <div>
-            <strong>real estate</strong><br />
+            <strong>spanish properties</strong><br />
             Calle Velázquez, 42, 3º Izquierda<br />
             28001 Madrid<br />
             España<br />

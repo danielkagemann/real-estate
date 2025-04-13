@@ -1,6 +1,7 @@
 import { useGetFeaturedProperties } from "@/hooks/propertyEndpoints";
 import { SkeletonLoader } from "../ui/SkeletonLoader";
 import { PropertyFeature } from "../properties/PropertyFeature";
+import { PropertyItem } from "../properties/PropertyItem";
 
 export const Featured = () => {
    const $featured = useGetFeaturedProperties()
@@ -15,11 +16,11 @@ export const Featured = () => {
    }
 
    return (
-      <div className="p-10">
-         <h2 className="text-xl font-bold pb-2">Top featured projects</h2>
+      <>
+         <h2 className="text-2xl font-bold pb-2">Featured projects</h2>
          <div className="flex gap-8 w-full justify-between">
-            {$featured.data?.map((p) => <PropertyFeature key={p.id} item={p} />)}
+            {$featured.data?.map((p) => <PropertyItem key={p.id} property={p} />)}
          </div>
-      </div>
+      </>
    );
 }
