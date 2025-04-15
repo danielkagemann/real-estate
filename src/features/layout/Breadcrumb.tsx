@@ -13,6 +13,10 @@ export const Breadcrumb = () => {
    const pathname = usePathname();
    const pathSegments = pathname.split("/").filter((item) => item !== "" && BREADCRUMBLABEL[item] !== undefined);
 
+   if (pathSegments.length === 0) {
+      return null
+   }
+
    return (
       <nav aria-label="breadcrumb" className="text-xs my-4">
          <ul className="flex space-x-2">

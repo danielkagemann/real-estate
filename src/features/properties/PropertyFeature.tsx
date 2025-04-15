@@ -1,4 +1,4 @@
-import { Property } from "@/models/schema"
+import { Property } from "@/shared/models/schema"
 import { IconBath, IconBed, IconBuildingCommunity } from "@tabler/icons-react"
 import { FC } from "react"
 import { Price } from "../ui/Price"

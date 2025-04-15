@@ -1,11 +1,11 @@
 "use client";
 
-import { Agents } from "@/components/layout/Agents";
-import { Featured } from "@/components/featured/Featured";
-import { Facts } from "@/components/layout/Facts";
-import { Hero } from "@/components/layout/Hero";
-import { WhyUs } from "@/components/layout/WhyUs";
-import { Listings } from "@/components/layout/Listings";
+import { Agents } from "@/features/layout/Agents";
+import { Featured } from "@/features/featured/Featured";
+import { Facts } from "@/features/layout/Facts";
+import { Hero } from "@/features/layout/Hero";
+import { WhyUs } from "@/features/layout/WhyUs";
+import { Listings } from "@/features/layout/Listings";
 
 export default function Home() {
 

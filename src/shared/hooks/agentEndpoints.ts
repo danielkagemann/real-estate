@@ -1,4 +1,4 @@
-import { Agent } from "@/models/schema";
+import { Agent } from "@/shared/models/schema";
 import { useQuery } from "@tanstack/react-query";
 
 export function useGetAgents() {

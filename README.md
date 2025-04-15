@@ -53,13 +53,13 @@ here is a list of open todos grouped by section
 
 ##### resultlist
 
-- pagination of resultlist
-- sorting
-- image slider in list
+- infinite scroll instead of pagintaion
 
 ##### details
 
-- detailview for a property with map
+- with map
+- sending with error or success message
+- add view all photos
 
 ##### compare
 

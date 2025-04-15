@@ -1,13 +1,14 @@
 "use client"
 
-import { Filters, filterSchema, TypeEnum } from "@/models/schema";
-import { FormEvent, useState } from "react";
+import { Filters, filterSchema, TypeEnum } from "@/shared/models/schema";
+import { FormEvent, useEffect, useState } from "react";
 import { Tag } from "../ui/Tag";
 import { IconSearch } from "@tabler/icons-react";
-import { useGetDistinctFilter } from "@/hooks/propertyEndpoints";
+import { useGetDistinctFilter } from "@/shared/hooks/propertyEndpoints";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from 'next/navigation'
 import { Menu } from "../ui/Menu";
+import { Headline } from "../ui/Headline";
 
 export const PropertyFilter = () => {
    const searchParams = useSearchParams()
@@ -23,6 +24,19 @@ export const PropertyFilter = () => {
 
    const $distinct = useGetDistinctFilter()
 
+   const handleSearch = () => {
+      const params = new URLSearchParams()
+      filter.locations.forEach(loc => params.append('locations', loc))
+      filter.types.forEach(type => params.append('types', type))
+      params.set('maxPrice', String(filter.maxPrice))
+      params.set('page', '1') // set back to page 1
+      params.set('size', String(filter.size))
+      router.push(`/properties?${params.toString()}`)
+   }
+
+   // listen to changes on filter and force direct update
+   useEffect(handleSearch, [filter])
+
    const handleLocation = (name: string) => () => {
       const list = [...filter.locations];
       const id = list.indexOf(name);
@@ -35,9 +49,14 @@ export const PropertyFilter = () => {
    }
 
    const renderLocations = () => (
-      <div className="flex flex-col gap-1">
-         <Menu title="Locations">
-            <div className="h-32 overflow-y-auto flex flex-col gap-1">
+      <div className="w-1/3">
+         <Menu title="Locations"
+            value={(<p className="text-ellipsis text-nowrap">
+               {filter.locations.length === 0 && 'ALL'}
+               {filter.locations.length >= 1 && filter.locations[0]}
+               {filter.locations.length > 1 && `, +${filter.locations.length - 1}`}
+            </p>)}>
+            <div className="h-60 overflow-y-auto flex flex-col gap-1">
                <button type="button" className="bg-gray-700 cursor-pointer text-white p-1 mb-2" onClick={() => setFilter({ ...filter, locations: [] })}>clear all</button>
                {
                   $distinct.data?.locations.map((name) => (
@@ -49,24 +68,8 @@ export const PropertyFilter = () => {
                }
             </div>
          </Menu>
-         <p className="text-ellipsis text-nowrap">
-            {filter.locations.length === 0 && 'ALL'}
-            {filter.locations.length >= 1 && filter.locations[0]}
-            {filter.locations.length > 1 && `, +${filter.locations.length - 1}`}
-         </p>
       </div>
    );
-
-   const handleSearch = (event: FormEvent) => {
-      event.preventDefault()
-      const params = new URLSearchParams()
-      filter.locations.forEach(loc => params.append('locations', loc))
-      filter.types.forEach(type => params.append('types', type))
-      params.set('maxPrice', String(filter.maxPrice))
-      params.set('page', '1') // set back to page 1
-      params.set('size', String(filter.size))
-      router.push(`/properties?${params.toString()}`)
-   }
 
    const toggleType = (value: string) => () => {
       const list = [...filter.types]
@@ -81,7 +84,7 @@ export const PropertyFilter = () => {
    }
 
    const renderTypes = () => (
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col w-1/3">
          <strong>Property type</strong>
          <div className="flex flex-row gap-1 items-center">
             {
@@ -101,7 +104,7 @@ export const PropertyFilter = () => {
    }
 
    const renderPrice = () => (
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col gap-1 w-1/3">
          <strong>Max. price</strong>
          <input type="text"
             className="border-0 bg-transparent ring-0 focus:outline-none"
@@ -112,20 +115,16 @@ export const PropertyFilter = () => {
    );
 
    return (
-      <form className="shadow-2xl rounded-4xl bg-white mt-2 text-xs" onSubmit={handleSearch}>
-         <div className="flex justify-evenly p-4 gap-2 ">
-            {renderLocations()}
-            <div className="h-auto w-[1px] bg-gray-400"></div>
-            {renderTypes()}
-            <div className="h-auto w-[1px] bg-gray-400"></div>
-            {renderPrice()}
-            <div className="h-auto w-[1px] bg-gray-400"></div>
-            <button type="submit"
-               className="cursor-pointer rounded-4xl bg-red-700 text-white p-4"
-            >
-               <IconSearch stroke={1} size={16} />
-            </button>
-         </div>
-      </form>
+      <>
+         <Headline>Find your property</Headline>
+         <form className="rounded-2xl bg-gray-100 p-4">
+
+            <div className="flex w-full pt-2">
+               {renderLocations()}
+               {renderTypes()}
+               {renderPrice()}
+            </div>
+         </form>
+      </>
    );
 }

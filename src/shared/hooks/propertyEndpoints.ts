@@ -3,7 +3,7 @@ import {
   Filters,
   Property,
   PropertyResponse,
-} from "@/models/schema";
+} from "@/shared/models/schema";
 import { useQuery } from "@tanstack/react-query";
 
 export function useGetDistinctFilter() {

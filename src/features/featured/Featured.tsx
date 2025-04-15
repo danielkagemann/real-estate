@@ -1,4 +1,4 @@
-import { useGetFeaturedProperties } from "@/hooks/propertyEndpoints";
+import { useGetFeaturedProperties } from "@/shared/hooks/propertyEndpoints";
 import { SkeletonLoader } from "../ui/SkeletonLoader";
 import { PropertyFeature } from "../properties/PropertyFeature";
 import { PropertyItem } from "../properties/PropertyItem";

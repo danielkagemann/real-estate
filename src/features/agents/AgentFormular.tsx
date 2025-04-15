@@ -1,4 +1,4 @@
-import { AgentContact, agentContactSchema } from "@/models/schema"
+import { AgentContact } from "@/shared/models/schema"
 import { InputField } from "../ui/InputField"
 import { useState } from "react"
 
@@ -23,7 +23,7 @@ export const AgentFormular = ({ id, agent, image }: FormularProps) => {
    }
 
    return (
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 bg-gray-200 rounded-xl p-4">
          <div className="flex justify-between pb-4">
             <div className="flex flex-col leading-none">
                <h2 className="text-lg font-bold">Your agent for this property</h2>
@@ -41,7 +41,7 @@ export const AgentFormular = ({ id, agent, image }: FormularProps) => {
             <button
                type="button"
                onClick={() => alert("NOT YET")}
-               className="bg-black text-white text-base p-2 cursor-pointer hover:rounded-xl hover:opacity-50 transition-all duration-300 ease-in-out"
+               className="bg-black rounded text-white text-base p-2 cursor-pointer hover:rounded-xl hover:opacity-50 transition-all duration-300 ease-in-out"
             >Send request</button>
          </div>
       </div>

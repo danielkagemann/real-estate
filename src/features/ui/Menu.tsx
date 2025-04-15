@@ -1,11 +1,12 @@
 import { IconChevronDown } from "@tabler/icons-react";
-import { FC, PropsWithChildren, useState, useEffect, useRef } from "react";
+import { FC, PropsWithChildren, useState, useEffect, useRef, ReactElement, ReactNode } from "react";
 
 type MenuProps = {
-   title: string;
+   title: string,
+   value: ReactNode
 };
 
-export const Menu: FC<PropsWithChildren<MenuProps>> = ({ title, children }) => {
+export const Menu: FC<PropsWithChildren<MenuProps>> = ({ title, value, children }) => {
    const [open, setOpen] = useState<boolean>(false);
    const menuRef = useRef<HTMLDivElement>(null);
 
@@ -32,12 +33,15 @@ export const Menu: FC<PropsWithChildren<MenuProps>> = ({ title, children }) => {
    }, [open]);
 
    return (
-      <div className="relative" ref={menuRef}>
+      <div className="relative z-10" ref={menuRef}>
          {open ? <div className="bg-white border border-gray-400 rounded-md absolute p-2 flex flex-col">{children}</div>
             :
-            <button type="button" className="flex gap-2 cursor-pointer" onClick={handleClick}>
-               <strong>{title}</strong>
-               <IconChevronDown className={open ? "transition-all rotate-180" : "transition-all"} size={14} />
+            <button type="button" className="flex flex-col items-start cursor-pointer" onClick={handleClick}>
+               <div className="flex gap-1 items-center">
+                  <strong>{title}</strong>
+                  <IconChevronDown size={14} />
+               </div>
+               <div>{value}</div>
             </button>
          }
       </div>

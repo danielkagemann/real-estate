@@ -1,5 +1,5 @@
-import { useGetAgents } from "@/hooks/agentEndpoints"
-import { Agent } from "@/models/schema";
+import { useGetAgents } from "@/shared/hooks/agentEndpoints"
+import { Agent } from "@/shared/models/schema";
 import { IconMail, IconPhone } from "@tabler/icons-react";
 import { SkeletonLoader } from "../ui/SkeletonLoader";
 import { Headline } from "../ui/Headline";

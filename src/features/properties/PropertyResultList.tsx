@@ -1,10 +1,10 @@
-import { useGetProperties } from "@/hooks/propertyEndpoints";
-import { filterSchema } from "@/models/schema";
+import { useGetProperties } from "@/shared/hooks/propertyEndpoints";
+import { filterSchema } from "@/shared/models/schema";
 import { useSearchParams } from "next/navigation";
-import { PropertyResultItem } from "./PropertyResultItem";
 import Pagination from "./Pagination";
 import { Headline } from "../ui/Headline";
 import { PropertyItem } from "./PropertyItem";
+import { EmptyState } from "../layout/EmptyState";
 
 export const PropertyResultList = () => {
    const searchParams = useSearchParams()
@@ -16,13 +16,16 @@ export const PropertyResultList = () => {
 
    const $properties = useGetProperties(filterSchema.parse({ locations, types, maxPrice, page, size }))
 
+   const hasData = $properties.data?.properties?.length > 0 ?? false
+
    return (
       <>
          <Headline>Results ({$properties.data?.total})</Headline>
          <div className="flex gap-8 w-full flex-wrap">
             {$properties.data?.properties.map((p) => <PropertyItem key={p.id} property={p} />)}
+            {!hasData && <EmptyState>No properties found</EmptyState>}
          </div>
-         <Pagination limit={size} page={page} total={$properties.data?.total ?? 0} />
+         {hasData && <Pagination limit={size} page={page} total={$properties.data?.total ?? 0} />}
          <div className="pt-4" />
       </>
    );
