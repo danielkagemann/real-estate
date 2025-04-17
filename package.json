@@ -10,7 +10,7 @@
     "e2e": "npx playwright test",
     "db:delete": "rm database/db.sqlite",
     "db:create": "sqlite3 database/db.sqlite < database/create.sql",
-    "db:fill": "cd database && npm run all",
+    "db:fill": "cd database && npm run generate",
     "db:all": "npm run db:delete; npm run db:create; npm run db:fill"
   },
   "dependencies": {

@@ -3,17 +3,19 @@
 import { AgentFormular } from "@/features/agents/AgentFormular";
 import { PropertyAttribute } from "@/features/ui/PropertyAttribute";
 import { ImageSelector } from "@/features/ui/ImageSelector";
-import { useGetProperty } from "@/shared/hooks/propertyEndpoints"
+import { useGetProperty, useGetRelatedProperties } from "@/shared/hooks/propertyEndpoints"
 import { IconBath, IconBed, IconBuilding, IconCalendar, IconDimensions, IconParking } from "@tabler/icons-react";
 import { useParams } from "next/navigation";
 import { Headline } from "@/features/ui/Headline";
 import { CheckItem } from "@/features/ui/Checkitem";
+import { PropertyItem } from "@/features/properties/PropertyItem";
 
 export default function Page() {
    const params = useParams();
    const propertyId = params.propertyId as string;
 
    const $property = useGetProperty(propertyId)
+   const $related = useGetRelatedProperties(propertyId, $property.data?.price, $property.data?.area)
 
    if ($property.isLoading) {
       // FIXME: loading
@@ -26,6 +28,23 @@ export default function Page() {
    const { data } = $property
 
    const featureList = JSON.parse(data?.features as string) as string[]
+
+   function renderRelated() {
+      if ($related?.isError) {
+         return null;
+      }
+
+      const relatedList = $related?.data || []
+      return (
+         <>
+            <div className="pt-8" />
+            <h3 className="text-lg font-bold">Related properties</h3>
+            <div className="flex gap-8 w-full justify-start">
+               {relatedList.map((p: any) => <PropertyItem key={p.id} property={p} columns={2} />)}
+            </div>
+         </>
+      )
+   }
 
    return (
       <>
@@ -44,8 +63,8 @@ export default function Page() {
 
          <div className="pt-4" />
          <div className="flex w-full gap-4">
-            <div className="w-1/2">
-               <h3 className="text-lg">Overview</h3>
+            <div className="w-2/3">
+               <h3 className="text-lg font-bold">Overview</h3>
                <p className="text-gray-700">{data?.description}</p>
 
                <div className="pt-4" />
@@ -59,10 +78,13 @@ export default function Page() {
                </div>
 
                <div className="pt-4" />
-               <h3 className="text-lg">Features</h3>
+               <h3 className="text-lg font-bold">Features</h3>
                {featureList.map((item) => (<CheckItem key={item}>{item}</CheckItem>))}
+
+               {renderRelated()}
+
             </div>
-            <div className="w-1/2">
+            <div className="w-1/3">
                <AgentFormular agent={data?.agent_name ?? ''} id={data?.id ?? 0} image={data?.agent_image} />
             </div>
          </div>

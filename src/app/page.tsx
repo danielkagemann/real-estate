@@ -1,6 +1,6 @@
 "use client";
 
-import { Agents } from "@/features/layout/Agents";
+import { Agents } from "@/features/agents/Agents";
 import { Featured } from "@/features/featured/Featured";
 import { Facts } from "@/features/layout/Facts";
 import { Hero } from "@/features/layout/Hero";

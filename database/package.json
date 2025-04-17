@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "data-generator.js",
   "scripts": {
+    "generate": "node data-generator.js",
     "links": "cd unsplash-data && node generate.js",
     "all": "npm run links && node data-generator.js"
   },

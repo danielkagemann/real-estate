@@ -1,7 +1,6 @@
 "use client";
 
-import { Footer } from "@/features/layout/Footer";
-import { Hero } from "@/features/layout/Hero";
+import { CompareSelection } from "@/features/properties/CompareSelection";
 import { PropertyFilter } from "@/features/properties/PropertyFilter";
 import { PropertyResultList } from "@/features/properties/PropertyResultList";
 
@@ -11,6 +10,8 @@ export default function Page() {
          <PropertyFilter />
          <div className="pb-4" />
          <PropertyResultList />
+
+         <CompareSelection />
       </>
    );
 }

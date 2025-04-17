@@ -1,12 +1,20 @@
 import { Property } from "@/shared/models/schema";
-import { IconBat, IconBath, IconBed, IconBuilding } from "@tabler/icons-react";
+import { IconBath, IconBed, IconBuilding } from "@tabler/icons-react";
 import Link from "next/link";
 
-export const PropertyItem = ({ property }: { property: Property }) => {
+type Props = {
+   property: Property,
+   columns?: number
+}
+
+export const PropertyItem = ({ property, columns = 3 }: Props) => {
    const image = JSON.parse(property?.images ?? "[]");
+   const padding = (0.5 * columns) - 0.25;
+   const size = Math.floor(100 / columns);
+
    return (
-      <Link href={`/properties/details/${property.id}`}>
-         <div className="w-[280px] hover-detail-cursor">
+      <Link href={`/properties/details/${property.id}`} className={`w-[calc(${size}%-${padding}rem)]`}>
+         <div className="hover-detail-cursor">
             <div
                className="bg-no-repeat w-full aspect-3/2 bg-cover rounded-xl relative"
                style={{

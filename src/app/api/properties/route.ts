@@ -36,8 +36,6 @@ export async function POST(req: NextRequest) {
     `SELECT COUNT(*) as total FROM properties ${whereClause}`
   );
 
-  console.log("SQL: ", whereClause, values);
-
   const result = totalStmt.get(...values);
   const { total } = result;
 

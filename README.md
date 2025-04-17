@@ -57,6 +57,7 @@ here is a list of open todos grouped by section
 
 ##### details
 
+- related properties
 - with map
 - sending with error or success message
 - add view all photos

@@ -67,3 +67,22 @@ export function useGetProperties(filter: Filters) {
     },
   });
 }
+
+export function useGetRelatedProperties(
+  id?: string,
+  price?: number,
+  area?: number
+) {
+  return useQuery<PropertyResponse>({
+    queryKey: ["related", id, price, area],
+    queryFn: async () => {
+      const res = await fetch("/api/properties/related", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id, price, area }),
+      });
+      if (!res.ok) throw new Error("Fehler beim Laden der Immobilien");
+      return res.json();
+    },
+  });
+}
