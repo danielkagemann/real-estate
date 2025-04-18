@@ -5,6 +5,7 @@ import Pagination from "./Pagination";
 import { Headline } from "../ui/Headline";
 import { PropertyItem } from "./PropertyItem";
 import { EmptyState } from "../layout/EmptyState";
+import { SkeletonLoader } from "../ui/SkeletonLoader";
 
 export const PropertyResultList = () => {
    const searchParams = useSearchParams()
@@ -15,6 +16,19 @@ export const PropertyResultList = () => {
    const size = Number(searchParams.get('size')) || 10
 
    const $properties = useGetProperties(filterSchema.parse({ locations, types, maxPrice, page, size }))
+
+   if ($properties.isLoading) {
+      return (
+         <>
+            <SkeletonLoader className="w-40 h-5 mb-4" />
+            <div className="flex gap-8 w-full flex-wrap">
+               <SkeletonLoader className="w-[calc(33%-1.25rem)] h-40" />
+               <SkeletonLoader className="w-[calc(33%-1.25rem)] h-40" />
+               <SkeletonLoader className="w-[calc(33%-1.25rem)] h-40" />
+            </div>
+         </>
+      )
+   }
 
    const hasData = $properties.data?.properties?.length > 0 ?? false
 
