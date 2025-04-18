@@ -86,3 +86,18 @@ export function useGetRelatedProperties(
     },
   });
 }
+
+export function useGetCompareProperties(ids: string[]) {
+  return useQuery<Property[]>({
+    queryKey: ["compare", ids],
+    queryFn: async () => {
+      const res = await fetch("/api/properties/compare", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ids }),
+      });
+      if (!res.ok) throw new Error("Fehler beim Laden der Immobilien");
+      return res.json();
+    },
+  });
+}

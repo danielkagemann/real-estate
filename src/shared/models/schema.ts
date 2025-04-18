@@ -30,6 +30,10 @@ export const propertySchema = z.object({
   status: z.enum(["available", "sold", "reserved"]),
   images: z.string().optional(),
   agent_id: z.number().int().positive(),
+  agent_name: z.string(),
+  agent_email: z.string(),
+  agent_phone: z.string(),
+  agent_image: z.string(),
 });
 
 export const distinctFilters = z.object({

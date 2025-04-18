@@ -21,7 +21,7 @@ export const CompareSelection = () => {
             </div>
 
             <div className="flex justify-start gap-2 items-center">
-               <Link href={`/compare/${selected.map((item) => item.id).join(',')}`} className="bg-black text-white p-2 rounded-xl">compare</Link>
+               <Link href={`/properties/compare/${selected.map((item) => item.id).join('-')}`} className="bg-black text-white p-2 rounded-xl">compare</Link>
                {
                   selected.map((prop: Property) => (
                      <button key={prop.id + prop.title}
