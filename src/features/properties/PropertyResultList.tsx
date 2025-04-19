@@ -14,8 +14,9 @@ export const PropertyResultList = () => {
    const maxPrice = Number(searchParams.get('maxPrice'))
    const page = Number(searchParams.get('page')) || 1
    const size = Number(searchParams.get('size')) || 10
+   const sort = searchParams.get('sort') || 'latest'
 
-   const $properties = useGetProperties(filterSchema.parse({ locations, types, maxPrice, page, size }))
+   const $properties = useGetProperties(filterSchema.parse({ locations, types, maxPrice, page, size, sort }))
 
    if ($properties.isLoading) {
       return (
@@ -35,7 +36,7 @@ export const PropertyResultList = () => {
    return (
       <>
          <Headline>Results ({$properties.data?.total})</Headline>
-         <div className="flex gap-8 w-full flex-wrap">
+         <div className="flex gap-8 w-full flex-wrap pt-2">
             {$properties.data?.properties.map((p) => <PropertyItem key={p.id} property={p} withCompare />)}
             {!hasData && <EmptyState>No properties found</EmptyState>}
          </div>

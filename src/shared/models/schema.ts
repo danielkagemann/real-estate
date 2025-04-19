@@ -47,6 +47,7 @@ export const filterSchema = z.object({
   maxPrice: z.number().min(0).default(0),
   page: z.number().int().min(1).default(1),
   size: z.number().int().default(10),
+  sort: z.enum(["price", "latest"]).default("latest"),
 });
 
 export const agentContactSchema = z.object({

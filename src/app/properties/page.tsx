@@ -7,7 +7,6 @@ import { PropertyResultList } from "@/features/properties/PropertyResultList";
 import { Property } from "@/shared/models/schema";
 import { useState } from "react";
 
-
 export default function Page() {
    const [selected, setSelected] = useState<Property[]>([])
 

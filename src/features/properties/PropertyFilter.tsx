@@ -18,9 +18,10 @@ export const PropertyFilter = () => {
    const maxPrice = Number(searchParams.get('maxPrice'))
    const page = Number(searchParams.get('page')) || 1
    const size = Number(searchParams.get('size')) || 10
+   const sort = searchParams.get('sort') || "latest"
 
    const router = useRouter()
-   const [filter, setFilter] = useState<Filters>(filterSchema.parse({ locations, types, maxPrice, page, size }));
+   const [filter, setFilter] = useState<Filters>(filterSchema.parse({ locations, types, maxPrice, page, size, sort }));
 
    const $distinct = useGetDistinctFilter()
 
@@ -31,6 +32,7 @@ export const PropertyFilter = () => {
       params.set('maxPrice', String(filter.maxPrice))
       params.set('page', '1') // set back to page 1
       params.set('size', String(filter.size))
+      params.set('sort', String(filter.sort))
       router.push(`/properties?${params.toString()}`)
    }
 
@@ -46,6 +48,10 @@ export const PropertyFilter = () => {
          list.splice(id, 1);
       }
       setFilter({ ...filter, locations: list })
+   }
+
+   const handleSort = (name: "latest" | "price") => () => {
+      setFilter({ ...filter, sort: name })
    }
 
    const renderLocations = () => (
@@ -123,6 +129,13 @@ export const PropertyFilter = () => {
                {renderLocations()}
                {renderTypes()}
                {renderPrice()}
+
+               <div className="flex justify-end gap-1">
+                  <button className="bg-orange-600 text-white p-1 pl-2 pr-2 text-base rounded-lg cursor-pointer"
+                     onClick={handleSort('latest')}>latest</button>
+                  <button className="bg-orange-600 text-white p-1 pl-2 pr-2 text-base rounded-lg cursor-pointer"
+                     onClick={handleSort('price')}>price</button>
+               </div>
             </div>
          </form>
       </>

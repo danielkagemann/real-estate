@@ -5,11 +5,15 @@ export async function POST(req: NextRequest) {
   const { searchParams } = new URL(req.url);
 
   const body = await req.json();
-
-  const { locations, types, maxPrice, page = 1, limit = 10 } = body;
-
+  const {
+    locations,
+    types,
+    maxPrice,
+    page = 1,
+    limit = 10,
+    sort = "latest",
+  } = body;
   const offset = (page - 1) * limit;
-
   const conditions: string[] = [];
   const values: any[] = [];
 
@@ -31,7 +35,7 @@ export async function POST(req: NextRequest) {
   const whereClause =
     conditions.length > 0 ? `WHERE ${conditions.join(" AND ")}` : "";
 
-  // Total Count (für Pagination)
+  // total count for pagination
   const totalStmt = db.prepare(
     `SELECT COUNT(*) as total FROM properties ${whereClause}`
   );
@@ -39,7 +43,8 @@ export async function POST(req: NextRequest) {
   const result = totalStmt.get(...values);
   const { total } = result;
 
-  // Paged Query
+  const orderBy =
+    sort === "latest" ? "properties.created DESC" : "properties.price ASC";
   const dataStmt = db.prepare(`
     SELECT
       properties.*,
@@ -50,7 +55,7 @@ export async function POST(req: NextRequest) {
     FROM properties
     JOIN agents ON properties.agent_id = agents.id
     ${whereClause}
-    ORDER BY properties.created DESC
+    ORDER BY ${orderBy}
     LIMIT ? OFFSET ?
   `);
 
