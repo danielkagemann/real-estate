@@ -36,7 +36,7 @@ export const PropertyResultList = () => {
       <>
          <Headline>Results ({$properties.data?.total})</Headline>
          <div className="flex gap-8 w-full flex-wrap">
-            {$properties.data?.properties.map((p) => <PropertyItem key={p.id} property={p} />)}
+            {$properties.data?.properties.map((p) => <PropertyItem key={p.id} property={p} withCompare />)}
             {!hasData && <EmptyState>No properties found</EmptyState>}
          </div>
          {hasData && <Pagination limit={size} page={page} total={$properties.data?.total ?? 0} />}

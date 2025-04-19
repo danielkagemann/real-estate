@@ -3,6 +3,7 @@
 import { useGetCompareProperties, useGetProperty } from "@/shared/hooks/propertyEndpoints";
 import { Property } from "@/shared/models/schema";
 import { table } from "console";
+import Link from "next/link";
 import { useParams } from "next/navigation";
 import { StringifyOptions } from "querystring";
 import { ReactNode } from "react";
@@ -28,50 +29,62 @@ export default function Page() {
 
    const list: Property[] = $compare.data ?? []
 
-   function renderRow(label: string, attribute: string, render: (value: any) => ReactNode) {
+   function renderRow(label: string, render: (item: Property) => ReactNode) {
       return (
-         <tr key={attribute}>
-            <td className="font-bold border-b border-gray-400 p-2 text-xs">{label}</td>
+         <tr key={label}>
+            <td className="font-bold border-b border-gray-200 p-2 text-xs">{label}</td>
             {
-               list.map((item: Property, index: number) => (<td className="border-b border-gray-400 p-2" key={`${attribute}-${index}`}>{render(item[attribute])}</td>))
+               list.map((item: Property, index: number) => (<td className="border-b border-gray-200 p-2" key={`${label}-${index}`}>{render(item)}</td>))
             }
          </tr>
       )
    }
 
-   function renderString(add: string = '') {
-      return function (v: string) {
+   function _text(attr: string, suffix: string = '') {
+      return function (item: Property) {
+         const v = item[attr] || ''
          if (!v || v.length === 0) {
             return '---'
          }
-         return (<>{v} {add}</>)
+         return (<>{v} {suffix}</>)
       }
    }
 
-   function renderImage() {
-      return function (v: string) {
-         const image = JSON.parse(v)
-         return (<img src={image[0]} alt="compare:image" className="w-[120px] aspect-3/2 object-cover rounded-xl" />)
-      }
+   function _title(item: Property) {
+      return (<strong>{item.title}</strong>)
    }
 
-   console.log('list', list)
+   function _image(item: Property) {
+      const image = JSON.parse(item.images ?? '')
+      return (<img src={image[0]} alt="compare:image" className="w-[120px] aspect-3/2 object-cover rounded-xl" />)
+   }
+
+   function _sqmPrice(item: Property) {
+      const price = item.price / item.area
+      return (<>{price.toFixed(2)} EUR</>)
+   }
+
+   function _link(item: Property) {
+      return (<Link className="bg-orange-600 text-white p-2 rounded-md" href={`/properties/details/${item.id}`}>Details</Link>)
+   }
 
    return (
       <table className="table-auto w-full border-collapse">
          <tbody>
-            {renderRow('', 'images', renderImage())}
-            {renderRow('', 'title', renderString())}
-            {renderRow('Location', 'location', renderString())}
-            {renderRow('Type', 'type', renderString())}
-            {renderRow('Build', 'year', renderString())}
-            {renderRow('Price', 'price', renderString('EUR'))}
-            {renderRow('Area', 'area', renderString('sqm'))}
-            {renderRow('Plot', 'plot', renderString('sqm'))}
-            {renderRow('Bedrooms', 'bedrooms', renderString())}
-            {renderRow('Bathrooms', 'bathrooms', renderString())}
-            {renderRow('Parking', 'parking', renderString())}
-            {renderRow('Your contact', 'agent_name', renderString())}
+            {renderRow('', _image)}
+            {renderRow('', _title)}
+            {renderRow('Location', _text('location'))}
+            {renderRow('Type', _text('type'))}
+            {renderRow('Build', _text('year'))}
+            {renderRow('Price', _text('price', 'EUR'))}
+            {renderRow('sqm price', _sqmPrice)}
+            {renderRow('Area', _text('area', 'sqm'))}
+            {renderRow('Plot', _text('plot', 'sqm'))}
+            {renderRow('Bedrooms', _text('bedrooms'))}
+            {renderRow('Bathrooms', _text('bathrooms'))}
+            {renderRow('Parking', _text('parking'))}
+            {renderRow('Your agent', _text('agent_name'))}
+            {renderRow('', _link)}
          </tbody>
       </table>
    )

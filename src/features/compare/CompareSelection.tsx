@@ -2,6 +2,7 @@ import { Property } from "@/shared/models/schema"
 import { COMPARE_MAX, useCompare } from "./context"
 import { CompareItem } from "./CompareItem"
 import Link from "next/link"
+import { IconX } from "@tabler/icons-react"
 
 export const CompareSelection = () => {
 
@@ -21,7 +22,7 @@ export const CompareSelection = () => {
             </div>
 
             <div className="flex justify-start gap-2 items-center">
-               <Link href={`/properties/compare/${selected.map((item) => item.id).join('-')}`} className="bg-black text-white p-2 rounded-xl">compare</Link>
+               {selected.length > 1 && <Link href={`/properties/compare/${selected.map((item) => item.id).join('-')}`} className="bg-black text-white p-2 rounded-xl">compare</Link>}
                {
                   selected.map((prop: Property) => (
                      <button key={prop.id + prop.title}

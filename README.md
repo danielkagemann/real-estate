@@ -14,6 +14,15 @@ This is a sample project using the latest tech stack.
 
 The design is related to what most of the real estate agency website offer.
 
+List of features
+
+- fake data generation
+- landing page
+- live search
+- detail view
+- related properties regarding price and size
+- comparison of properties
+
 ## Screenshot
 
 ![alt text](screens/overview.png)
@@ -41,6 +50,10 @@ npm run dev
 
 here is a list of open todos grouped by section
 
+##### container
+
+- make a docker container
+
 ##### general
 
 - error handling
@@ -57,14 +70,14 @@ here is a list of open todos grouped by section
 
 ##### details
 
-- related properties
 - with map
 - sending with error or success message
 - add view all photos
 
 ##### compare
 
-- comparison of two properties
+- go to listing
+- feature comparison
 
 ##### administration
 

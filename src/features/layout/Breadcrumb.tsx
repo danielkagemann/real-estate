@@ -4,6 +4,7 @@ import { string } from "zod"
 
 const BREADCRUMBLABEL: Record<string, string> = {
    properties: "Properties",
+   compare: "Compare",
    details: "Details",
    aboutus: "About Us",
    contact: "Contact",
