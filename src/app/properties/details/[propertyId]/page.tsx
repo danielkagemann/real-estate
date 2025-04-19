@@ -40,8 +40,8 @@ export default function Page() {
          <>
             <div className="pt-8" />
             <h3 className="text-lg font-bold">Related properties</h3>
-            <div className="flex gap-8 w-full justify-start">
-               {relatedList.map((p: any) => <PropertyItem key={p.id} property={p} columns={2} />)}
+            <div className="flex gap-4">
+               {relatedList.map((p: any) => <PropertyItem key={p.id} property={p} className="w-[calc(50%-0.75rem)]" />)}
             </div>
          </>
       )

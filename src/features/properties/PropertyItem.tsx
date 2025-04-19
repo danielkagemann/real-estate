@@ -5,14 +5,14 @@ import { useCompare } from "../compare/context";
 
 type Props = {
    property: Property,
-   columns?: number,
+   className?: string,
    withCompare?: boolean
 }
 
-export const PropertyItem = ({ property, columns = 3, withCompare = false }: Props) => {
+export const PropertyItem = ({ property, className = "w-[calc(33%-1.25rem)]", withCompare = false }: Props) => {
    const image = JSON.parse(property?.images ?? "[]")
-   const padding = (0.5 * columns) - 0.25
-   const size = Math.floor(100 / columns)
+   //const padding = (0.5 * columns) - 0.25
+   //const size = Math.floor(100 / columns)
 
    const { selected, toggleSelection } = useCompare()
 
@@ -24,9 +24,8 @@ export const PropertyItem = ({ property, columns = 3, withCompare = false }: Pro
 
    const isSelected = selected.find((item) => item.id === property.id)
 
-   const width = `calc(${size}%-${padding}rem)`
    return (
-      <div className={`w-[${width}] flex flex-col`}>
+      <div className={`flex flex-col ${className}`}>
          <div
             className={`bg-no-repeat w-full aspect-3/2 bg-cover rounded-xl relative`}
             style={{
