@@ -11,6 +11,7 @@ import { CheckItem } from "@/features/ui/Checkitem";
 import { PropertyItem } from "@/features/properties/PropertyItem";
 import SlideIn from "@/features/motion/SlideIn";
 import Map from "@/features/ui/Map";
+import { SkeletonLoader } from "@/features/ui/SkeletonLoader";
 
 export default function Page() {
    const params = useParams();
@@ -20,8 +21,30 @@ export default function Page() {
    const $related = useGetRelatedProperties(propertyId, $property.data?.price, $property.data?.area)
 
    if ($property.isLoading) {
-      // FIXME: loading
-      return <div>Loading...</div>
+      return (
+         <>
+            <div className="flex w-full justify-between mb-8">
+               <div>
+                  <SkeletonLoader className="w-60 h-8 mb-4" />
+                  <SkeletonLoader className="w-32 h-3" />
+               </div>
+               <div>
+                  <SkeletonLoader className="w-10 h-4 mb-4" />
+                  <SkeletonLoader className="w-4 h-2" />
+               </div>
+            </div>
+
+            <div className="grid grid-cols-3 grid-rows-2 gap-2">
+               <div className="col-span-2 row-span-2"><SkeletonLoader className="w-full h-[400px]" /></div>
+               <div className="col-start-3">
+                  <SkeletonLoader className="w-full h-[calc(200px-0.25rem)]" />
+               </div>
+               <div className="col-start-3 row-start-2">
+                  <SkeletonLoader className="w-full h-[calc(200px-0.25rem)]" />
+               </div>
+            </div>
+         </>
+      )
    }
 
    if ($property.isError) {
