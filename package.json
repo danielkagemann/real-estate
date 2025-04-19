@@ -11,16 +11,20 @@
     "db:delete": "rm database/db.sqlite",
     "db:create": "sqlite3 database/db.sqlite < database/create.sql",
     "db:fill": "cd database && npm run generate",
-    "db:all": "npm run db:delete; npm run db:create; npm run db:fill"
+    "db:all": "npm run db:delete; npm run db:create; npm run db:fill",
+    "docker:build": "npm build && docker build -t real-estate-app .",
+    "docker:run": "docker run -p 3000:3000 real-estate-app"
   },
   "dependencies": {
     "@tabler/icons-react": "^3.31.0",
     "@tanstack/react-query": "^5.70.0",
     "better-sqlite3": "^11.9.1",
+    "leaflet": "^1.9.4",
     "motion": "^12.6.2",
     "next": "15.2.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-leaflet": "^5.0.0",
     "zod": "^3.24.2"
   },
   "devDependencies": {
@@ -28,6 +32,7 @@
     "@playwright/test": "^1.51.1",
     "@tailwindcss/postcss": "^4",
     "@types/better-sqlite3": "^7.6.12",
+    "@types/leaflet": "^1.9.17",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

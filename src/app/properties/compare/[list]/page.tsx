@@ -1,19 +1,15 @@
 "use client";
 
-import { useGetCompareProperties, useGetProperty } from "@/shared/hooks/propertyEndpoints";
+import { useGetCompareProperties } from "@/shared/hooks/propertyEndpoints";
 import { Property } from "@/shared/models/schema";
-import { table } from "console";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { StringifyOptions } from "querystring";
 import { ReactNode } from "react";
 
 export default function Page() {
 
    const params = useParams();
    const ids: string[] = (params.list as string).split('-')
-
-   console.log(ids)
 
    const $compare = useGetCompareProperties(ids)
 

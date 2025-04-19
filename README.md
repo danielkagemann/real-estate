@@ -52,7 +52,7 @@ here is a list of open todos grouped by section
 
 ##### container
 
-- make a docker container
+- make a docker container->needs test
 
 ##### general
 
@@ -70,7 +70,6 @@ here is a list of open todos grouped by section
 
 ##### details
 
-- with map
 - sending with error or success message
 - add view all photos
 

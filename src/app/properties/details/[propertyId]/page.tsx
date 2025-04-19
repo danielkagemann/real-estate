@@ -10,6 +10,7 @@ import { Headline } from "@/features/ui/Headline";
 import { CheckItem } from "@/features/ui/Checkitem";
 import { PropertyItem } from "@/features/properties/PropertyItem";
 import SlideIn from "@/features/motion/SlideIn";
+import Map from "@/features/ui/Map";
 
 export default function Page() {
    const params = useParams();
@@ -87,6 +88,10 @@ export default function Page() {
                ))}
 
                {renderRelated()}
+
+               <div className="pt-4" />
+               <h3 className="text-lg font-bold">Location</h3>
+               <Map location={data?.location ?? ''} />
 
             </div>
             <div className="w-1/3">

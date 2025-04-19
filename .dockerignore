@@ -1,0 +1,8 @@
+node_modules
+src
+.git
+*.env
+*.ts
+*.tsx
+*.md
+Dockerfile

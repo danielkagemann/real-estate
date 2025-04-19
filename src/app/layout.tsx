@@ -1,6 +1,7 @@
 "use client"
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import 'leaflet/dist/leaflet.css';
 import "./globals.css";
 import { Header } from '@/features/layout/Header';
 import { Footer } from '@/features/layout/Footer';
