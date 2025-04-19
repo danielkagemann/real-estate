@@ -24,10 +24,11 @@ export const PropertyItem = ({ property, columns = 3, withCompare = false }: Pro
 
    const isSelected = selected.find((item) => item.id === property.id)
 
+   const width = `calc(${size}%-${padding}rem)`
    return (
-      <div className={`w-[calc(${size}%-${padding}rem)] flex flex-col`}>
+      <div className={`w-[${width}] flex flex-col`}>
          <div
-            className="bg-no-repeat w-full aspect-3/2 bg-cover rounded-xl relative"
+            className={`bg-no-repeat w-full aspect-3/2 bg-cover rounded-xl relative`}
             style={{
                backgroundImage: `url(${image[0]})`,
             }}

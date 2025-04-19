@@ -9,6 +9,7 @@ import { useParams } from "next/navigation";
 import { Headline } from "@/features/ui/Headline";
 import { CheckItem } from "@/features/ui/Checkitem";
 import { PropertyItem } from "@/features/properties/PropertyItem";
+import SlideIn from "@/features/motion/SlideIn";
 
 export default function Page() {
    const params = useParams();
@@ -79,7 +80,11 @@ export default function Page() {
 
                <div className="pt-4" />
                <h3 className="text-lg font-bold">Features</h3>
-               {featureList.map((item) => (<CheckItem key={item}>{item}</CheckItem>))}
+               {featureList.map((item, index) => (
+                  <SlideIn direction="top" delay={index * 0.2} key={item}>
+                     <CheckItem>{item}</CheckItem>
+                  </SlideIn>
+               ))}
 
                {renderRelated()}
 

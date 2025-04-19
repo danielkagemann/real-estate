@@ -3,7 +3,7 @@ import { usePathname } from "next/navigation"
 import { string } from "zod"
 
 const BREADCRUMBLABEL: Record<string, string> = {
-   properties: "Properties",
+   properties: "Listings",
    compare: "Compare",
    details: "Details",
    aboutus: "About Us",

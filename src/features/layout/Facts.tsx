@@ -1,4 +1,4 @@
-import AnimateNumber from "../ui/AnimateNumber";
+import AnimateNumber from "../motion/AnimateNumber";
 import { Headline } from "../ui/Headline";
 
 export const Facts = () => {

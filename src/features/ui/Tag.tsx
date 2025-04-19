@@ -16,7 +16,7 @@ export const Tag: FC<PropsWithChildren<TagProps>> = ({ filled = false, size = Ta
       <button
          type="button"
          onClick={onClick}
-         className={`${size === TagSize.standard ? 'text-base' : 'text-xs'} inline cursor-pointer pl-1 pr-1 rounded-lg ${filled ? 'bg-red-700 text-white' : 'bg-gray-200'}`}>
+         className={`${size === TagSize.standard ? 'text-base' : 'text-xs'} inline cursor-pointer pl-1 pr-1 rounded-lg ${filled ? 'bg-orange-600 text-white' : 'bg-gray-200'}`}>
          {children}
       </button>
    );

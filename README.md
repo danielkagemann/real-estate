@@ -76,7 +76,6 @@ here is a list of open todos grouped by section
 
 ##### compare
 
-- go to listing
 - feature comparison
 
 ##### administration
