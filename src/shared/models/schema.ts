@@ -46,7 +46,7 @@ export const filterSchema = z.object({
   types: z.array(typeEnumSchema).default(["villa", "apartment", "finca"]),
   maxPrice: z.number().min(0).default(0),
   page: z.number().int().min(1).default(1),
-  size: z.number().int().default(10),
+  size: z.number().int().default(12),
   sort: z.enum(["price", "latest"]).default("latest"),
 });
 

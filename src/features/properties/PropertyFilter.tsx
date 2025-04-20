@@ -17,7 +17,7 @@ export const PropertyFilter = () => {
    const types = searchParams.getAll('types')
    const maxPrice = Number(searchParams.get('maxPrice'))
    const page = Number(searchParams.get('page')) || 1
-   const size = Number(searchParams.get('size')) || 10
+   const size = Number(searchParams.get('size')) || 12
    const sort = searchParams.get('sort') || "latest"
 
    const router = useRouter()
@@ -120,24 +120,26 @@ export const PropertyFilter = () => {
       </div>
    );
 
+   const sortActive = "bg-orange-600 text-white p-1 pl-2 pr-2 text-base rounded-lg cursor-pointer"
+   const sortDefault = "border border-orange-600 text-orange-600 p-1 pl-2 pr-2 text-base rounded-lg cursor-pointer"
    return (
       <>
          <Headline>Find your property</Headline>
          <form className="rounded-2xl bg-gray-100 p-4">
-
             <div className="flex w-full pt-2">
                {renderLocations()}
                {renderTypes()}
                {renderPrice()}
-
-               <div className="flex justify-end gap-1">
-                  <button className="bg-orange-600 text-white p-1 pl-2 pr-2 text-base rounded-lg cursor-pointer"
-                     onClick={handleSort('latest')}>latest</button>
-                  <button className="bg-orange-600 text-white p-1 pl-2 pr-2 text-base rounded-lg cursor-pointer"
-                     onClick={handleSort('price')}>price</button>
-               </div>
             </div>
          </form>
+
+         <div className="flex justify-end gap-1 items-center pt-2">
+            <span>Sort by</span>
+            <button className={sort === 'latest' ? sortActive : sortDefault}
+               onClick={handleSort('latest')}>latest</button>
+            <button className={sort === 'price' ? sortActive : sortDefault}
+               onClick={handleSort('price')}>price</button>
+         </div>
       </>
    );
 }
