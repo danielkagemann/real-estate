@@ -58,8 +58,8 @@ here is a list of open todos grouped by section
 
 - error handling
 - unit tests and integration tests with playwright
-- animations using motion
 - add all missing pages like
+  - search via map
   - about us
   - imprint
   - data policy
@@ -72,10 +72,6 @@ here is a list of open todos grouped by section
 
 - sending with error or success message
 - add view all photos
-
-##### compare
-
-- feature comparison
 
 ##### administration
 

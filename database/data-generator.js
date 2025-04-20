@@ -162,6 +162,10 @@ function createProperty(agentId) {
     images.push(faker.helpers.arrayElement(imageLinks.bathroom));
   }
 
+  const features = Array(faker.number.int({ min: 3, max: 7 }))
+    .fill("")
+    .map(() => faker.helpers.arrayElement(configuration.features));
+
   return {
     title: faker.helpers.arrayElement(propertyTitles[type]),
     description: faker.helpers.arrayElement(propertyDescriptions[type]),
@@ -176,11 +180,7 @@ function createProperty(agentId) {
     bedrooms: faker.number.int(configuration.numberOfBedrooms),
     bathrooms: faker.number.int(configuration.numberOfBathrooms),
     parking: faker.number.int(configuration.parkingSlots),
-    features: JSON.stringify(
-      Array(faker.number.int({ min: 3, max: 7 }))
-        .fill("")
-        .map(() => faker.helpers.arrayElement(configuration.features))
-    ),
+    features: JSON.stringify([...new Set(features)]),
     status: "available",
     images: JSON.stringify(images),
     agent_id: agentId,

@@ -18,9 +18,8 @@ export default function Page() {
       return <span>loading</span>
    }
 
-   // FIXME error
    if ($compare.isError) {
-      return <span>error</span>
+      throw new Error('Compare error');
    }
 
    const list: Property[] = $compare.data ?? []
@@ -31,6 +30,44 @@ export default function Page() {
             <td className="font-bold border-b border-gray-200 p-2 text-xs">{label}</td>
             {
                list.map((item: Property, index: number) => (<td className="border-b border-gray-200 p-2" key={`${label}-${index}`}>{render(item)}</td>))
+            }
+         </tr>
+      )
+   }
+
+   function renderFeatures() {
+      const featureList = list.map((item: Property) => JSON.parse(item.features as string) as string[])
+
+      if (featureList.length === 0) {
+         return null
+      }
+
+      const globalOrder: string[] = [];
+      const seen = new Set<string>();
+
+      for (const row of featureList) {
+         for (const item of row) {
+            if (!seen.has(item)) {
+               seen.add(item);
+               globalOrder.push(item);
+            }
+         }
+      }
+
+      const sorted = featureList.map(row => {
+         const unique = new Set(row);
+         return globalOrder.map(key => (unique.has(key) ? key : "---"));
+      });
+
+      return (
+         <tr key="features">
+            <td className="font-bold border-b border-gray-200 p-2 text-xs">Features</td>
+            {
+               sorted.map((item: string[], index: number) => (<td className="border-b border-gray-200 p-2" key={`features-${index}`}>
+                  {
+                     item.map((feature: string, featureIndex: number) => (<div key={feature + featureIndex + index}>{feature}</div>))
+                  }
+               </td>))
             }
          </tr>
       )
@@ -64,8 +101,15 @@ export default function Page() {
       return (<Link className="bg-orange-600 text-white p-2 rounded-md" href={`/properties/details/${item.id}`}>Details</Link>)
    }
 
+   function _agent(item: Property) {
+      return (<div className="flex justify-start items-center gap-2">
+         <img src={item.agent_image} className="w-[32px] aspect-square rounded-xl" alt={item.agent_name} />
+         {item.agent_name}
+      </div>)
+   }
+
    return (
-      <table className="table-auto w-full border-collapse">
+      <table className="table-auto w-full border-collapse pb-4">
          <tbody>
             {renderRow('', _image)}
             {renderRow('', _title)}
@@ -79,9 +123,11 @@ export default function Page() {
             {renderRow('Bedrooms', _text('bedrooms'))}
             {renderRow('Bathrooms', _text('bathrooms'))}
             {renderRow('Parking', _text('parking'))}
-            {renderRow('Your agent', _text('agent_name'))}
+            {renderFeatures()}
+            {renderRow('Your agent', _agent)}
             {renderRow('', _link)}
          </tbody>
       </table>
+
    )
 }

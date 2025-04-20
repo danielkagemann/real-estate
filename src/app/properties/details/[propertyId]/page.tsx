@@ -48,7 +48,7 @@ export default function Page() {
    }
 
    if ($property.isError) {
-      return <div>Error: {$property.error.message}</div>
+      throw new Error('Cannot show details');
    }
    const { data } = $property
 

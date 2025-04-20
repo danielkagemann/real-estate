@@ -1,5 +1,6 @@
 'use client';
 
+import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useCallback } from 'react';
 
@@ -26,25 +27,25 @@ export default function Pagination({ total, page, limit }: PaginationProps) {
    if (totalPages <= 1) return null;
 
    return (
-      <div className="flex justify-center gap-4 mt-6">
+      <div className="flex justify-center items-center gap-4 mt-6">
          <button
             onClick={() => updatePage(page - 1)}
             disabled={page <= 1}
-            className="px-4 py-2 rounded bg-gray-100 text-gray-700 border disabled:opacity-50"
+            className="p-2 rounded-full bg-orange-600 text-white cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
          >
-            Zurück
+            <IconChevronLeft size={16} />
          </button>
 
-         <span className="text-sm text-gray-600 pt-2">
-            Seite {page} von {totalPages}
+         <span className="text-sm text-gray-600">
+            {page} of {totalPages}
          </span>
 
          <button
             onClick={() => updatePage(page + 1)}
             disabled={page >= totalPages}
-            className="px-4 py-2 rounded bg-gray-100 text-gray-700 border disabled:opacity-50"
+            className="p-2 rounded-full bg-orange-600 text-white cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
          >
-            Weiter
+            <IconChevronRight size={16} />
          </button>
       </div>
    );

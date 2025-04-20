@@ -1,11 +1,13 @@
-import { motion } from "framer-motion";
+import { motion, useAnimation, useInView } from "framer-motion";
+import { useEffect, useRef } from "react";
 
 type SlideInProps = {
    children: React.ReactNode,
    delay?: number,
    duration?: number,
    amount?: number,
-   direction?: "left" | "right" | "top" | "bottom"
+   direction?: "left" | "right" | "top" | "bottom",
+   className?: string
 };
 
 export default function SlideIn({
@@ -14,7 +16,27 @@ export default function SlideIn({
    duration = 0.5,
    amount = 50,
    direction = "left",
+   className = ''
 }: SlideInProps) {
+   const ref = useRef(null);
+   const inView = useInView(ref, { once: true, margin: "0px 0px -100px 0px" });
+   const controls = useAnimation();
+
+   useEffect(() => {
+      if (inView) {
+         controls.start({
+            x: 0,
+            y: 0,
+            opacity: 1,
+            transition: {
+               duration,
+               delay,
+               ease: "easeOut",
+            },
+         });
+      }
+   }, [inView, controls, delay]);
+
    const getInitial = () => {
       switch (direction) {
          case "left":
@@ -34,9 +56,10 @@ export default function SlideIn({
 
    return (
       <motion.div
+         className={className}
+         ref={ref}
          initial={getInitial()}
-         animate={getAnimate()}
-         transition={{ duration, delay }}
+         animate={controls}
       >
          {children}
       </motion.div>
