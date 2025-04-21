@@ -4,10 +4,9 @@ export const Header = () => {
          <img src="/images/logo.png" alt="Logo" />
 
          <nav className="space-x-4">
-            <a href="/" className="text-gray-700 hover:text-orange-500">Home</a>
-            <a href="/properties" className="text-gray-700 hover:text-orange-500">Listings</a>
-            <a href="/aboutus" className="text-gray-700 hover:text-orange-500">About us</a>
-            <a href="/contact" className="text-gray-700 hover:text-orange-500">Contact</a>
+            <a href="/" className="text-gray-700 hover:text-orange-500 hover:underline">Home</a>
+            <a href="/properties" className="text-gray-700 hover:text-orange-500 hover:underline">Listings</a>
+            <a href="/aboutus" className="text-gray-700 hover:text-orange-500 hover:underline">About us</a>
          </nav>
       </header>
    );

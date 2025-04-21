@@ -56,17 +56,8 @@ here is a list of open todos grouped by section
 
 ##### general
 
-- error handling
-- unit tests and integration tests with playwright
 - add all missing pages like
   - search via map
-  - about us
-  - imprint
-  - data policy
-
-##### resultlist
-
-- infinite scroll instead of pagintaion
 
 ##### details
 

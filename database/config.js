@@ -1,11 +1,11 @@
 module.exports = {
-  numberOfAgents: 4,
-  numberOfProperties: 5000,
+  numberOfAgents: 3,
+  numberOfProperties: 832,
   numberOfBedrooms: { min: 1, max: 4 },
   numberOfBathrooms: { min: 1, max: 2 },
   plotSize: { min: 100, max: 1500 },
   buildSize: { min: 80, max: 350 },
-  buildYear: { min: 2000, max: 2023 },
+  buildYear: { min: 2000, max: 2024 },
   parkingSlots: { min: 0, max: 3 },
   priceRange: { min: 50000, max: 800000, multipleOf: 1000 },
 
