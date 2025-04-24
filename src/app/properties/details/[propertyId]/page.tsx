@@ -12,6 +12,8 @@ import { PropertyItem } from "@/features/properties/PropertyItem";
 import SlideIn from "@/features/motion/SlideIn";
 import Map from "@/features/ui/Map";
 import { SkeletonLoader } from "@/features/ui/SkeletonLoader";
+import { useState } from "react";
+import FullscreenImageSlider from "@/features/ui/FullscreenImageSlider";
 
 export default function Page() {
    const params = useParams();
@@ -19,6 +21,8 @@ export default function Page() {
 
    const $property = useGetProperty(propertyId)
    const $related = useGetRelatedProperties(propertyId, $property.data?.price, $property.data?.area)
+
+   const [full, setFullImages] = useState<boolean>(false)
 
    if ($property.isLoading) {
       return (
@@ -54,6 +58,12 @@ export default function Page() {
 
    const featureList = JSON.parse(data?.features as string) as string[]
 
+   function handleImageView(flag: boolean) {
+      return function () {
+         setFullImages(flag)
+      }
+   }
+
    function renderRelated() {
       if ($related?.isError) {
          return null;
@@ -71,6 +81,10 @@ export default function Page() {
       )
    }
 
+   if (full) {
+      return <FullscreenImageSlider imageUrls={JSON.parse(data?.images as string) as string[]} onClose={handleImageView(false)} />
+   }
+
    return (
       <>
          <div className="flex justify-between w-full items-center pb-4">
@@ -84,7 +98,7 @@ export default function Page() {
             </div>
          </div>
 
-         <ImageSelector images={data?.images as string} />
+         <ImageSelector images={data?.images as string} onShowAll={handleImageView(true)} />
 
          <div className="pt-4" />
          <div className="flex w-full gap-4">

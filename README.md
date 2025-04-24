@@ -38,33 +38,9 @@ To generate the database with fakedata please run
 # move to application folder
 cd real-estate
 
-# create initial database (if already existing use npm run db:all)
-npm run db:create
-npm run db:fill
+# create and fill database
+npm run db:all
 
 # start dev server
 npm run dev
 ```
-
-### open todos
-
-here is a list of open todos grouped by section
-
-##### container
-
-- make a docker container->needs test
-
-##### general
-
-- add all missing pages like
-  - search via map
-
-##### details
-
-- sending with error or success message
-- add view all photos
-
-##### administration
-
-- authentication
-- admin interface for adding new properties

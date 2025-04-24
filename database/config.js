@@ -67,16 +67,17 @@ module.exports = {
 
   images: {
     male: [
-      "https://images.pexels.com/photos/29856511/pexels-photo-29856511/free-photo-of-professionelles-portrat-eines-lachelnden-mannes-in-business-kleidung.jpeg?auto=compress&cs=tinysrgb&w=640",
       "https://images.pexels.com/photos/30196245/pexels-photo-30196245/free-photo-of-lachelnder-mann-im-gelben-pullover-mit-brille.jpeg?auto=compress&cs=tinysrgb&w=640",
-      "https://images.pexels.com/photos/15448145/pexels-photo-15448145/free-photo-of-landschaft-fashion-mode-mann.jpeg?auto=compress&cs=tinysrgb&w=640",
-      "https://images.pexels.com/photos/3777551/pexels-photo-3777551.jpeg?auto=compress&cs=tinysrgb&w=640",
+      "https://images.pexels.com/photos/832998/pexels-photo-832998.jpeg?auto=compress&cs=tinysrgb&w=640",
+      "https://images.pexels.com/photos/27855321/pexels-photo-27855321/free-photo-of-eleganz-in-weiss-der-moderne-gentleman.jpeg?auto=compress&cs=tinysrgb&w=640",
+      "https://images.pexels.com/photos/3760263/pexels-photo-3760263.jpeg?auto=compress&cs=tinysrgb&w=640",
     ],
     female: [
+      "https://images.pexels.com/photos/4926674/pexels-photo-4926674.jpeg?auto=compress&cs=tinysrgb&w=640",
       "https://images.pexels.com/photos/2381069/pexels-photo-2381069.jpeg?auto=compress&cs=tinysrgb&w=640",
-      "https://images.pexels.com/photos/1181742/pexels-photo-1181742.jpeg?auto=compress&cs=tinysrgb&w=640",
       "https://images.pexels.com/photos/29153940/pexels-photo-29153940.jpeg?auto=compress&cs=tinysrgb&w=640",
       "https://images.pexels.com/photos/31452871/pexels-photo-31452871/free-photo-of-monochromes-frauenportrat-in-munchen.jpeg?auto=compress&cs=tinysrgb&w=640",
+      "https://images.pexels.com/photos/31448635/pexels-photo-31448635.jpeg?auto=compress&cs=tinysrgb&w=640",
     ],
     beach: [
       "https://images.pexels.com/photos/1049298/pexels-photo-1049298.jpeg?auto=compress&cs=tinysrgb&w=640",

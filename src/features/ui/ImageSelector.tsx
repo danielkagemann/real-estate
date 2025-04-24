@@ -2,13 +2,13 @@ import { useRef } from "react";
 import SlideIn from "../motion/SlideIn";
 
 type Props = {
-   images: string
+   images: string,
+   onShowAll: () => void
 }
-export const ImageSelector = ({ images }: Props) => {
+export const ImageSelector = ({ images, onShowAll }: Props) => {
    const list = useRef<string[]>(JSON.parse(images) as string[])
 
    const renderImages = () => {
-
       // single image
       if (list.current.length === 1) {
          return (
@@ -50,10 +50,13 @@ export const ImageSelector = ({ images }: Props) => {
       <SlideIn>
          <div className="relative">
             <img src={list.current[0]} className="w-full h-[400px] object-cover rounded-xl" />
-            {list.current.length > 3 && <button type="button" className="text-xs bg-black text-white p-2 rounded-lg absolute left-2 bottom-2">view all photos</button>}
+            {list.current.length > 3 && (
+               <button type="button"
+                  className="text-xs cursor-pointer bg-black text-white p-2 rounded-lg absolute left-2 bottom-2"
+                  onClick={onShowAll}>view all photos</button>
+            )}
          </div>
       </SlideIn>
    )
-
    return renderImages()
 }
