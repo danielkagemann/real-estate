@@ -10,9 +10,10 @@ export async function POST(req: NextRequest) {
     types,
     maxPrice,
     page = 1,
-    limit = 10,
+    size = 10,
     sort = "latest",
   } = body;
+  const limit = size;
   const offset = (page - 1) * limit;
   const conditions: string[] = [];
   const values: any[] = [];

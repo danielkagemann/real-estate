@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { useSearchParams } from 'next/navigation'
 import { Menu } from "../ui/Menu";
 import { Headline } from "../ui/Headline";
+import { $Config } from "@/shared/config";
 
 export const PropertyFilter = () => {
    const searchParams = useSearchParams()
@@ -17,7 +18,7 @@ export const PropertyFilter = () => {
    const types = searchParams.getAll('types')
    const maxPrice = Number(searchParams.get('maxPrice'))
    const page = Number(searchParams.get('page')) || 1
-   const size = Number(searchParams.get('size')) || 12
+   const size = Number(searchParams.get('size')) || $Config.defaultPageSize
    const sort = searchParams.get('sort') || "latest"
 
    const router = useRouter()
